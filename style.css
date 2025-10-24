@@ -1,0 +1,1100 @@
+/* ------------------------------------
+ * 基本設定
+ * ------------------------------------ */
+:root {
+--color-main: #000000; /* 黒（維持） */
+    --color-accent: #C31A21; /* 赤（維持） */
+    
+    /* ★★★ 色変更: 黄色（FCE446）を深いネイビーに変更 ★★★ */
+    --color-navy: #1D2D50; /* 深い青/紺色 */
+    --color-light-blue: #EBF2FA; /* 薄い水色（背景のアクセントに） */
+ /* 使用を極力控えるが、変数として維持 */
+    
+    --color-bg-light: #f7f7f7; /* 薄いグレー（維持） */
+    --color-text: #333333; /* 文字色（維持） */
+    --font-size-base: 16px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body {
+    background-color: #ffffff;
+    line-height: 1.6;
+    color: var(--color-text);
+    font-size: var(--font-size-base);
+    overflow-x: hidden;
+
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ------------------------------------
+ * Flexbox レイアウト土台
+ * ------------------------------------ */
+/* これらの定義はHTMLの<head>で強制されますが、ここでは標準的な定義を維持 */
+.features, .value-boxes, .review-grid, .menu-items, .sns-content-box, .affiliated-stores-vertical {
+    display: flex;
+    justify-content: center;
+    gap: 20px; 
+    flex-wrap: wrap;
+}
+.menu-items, .sns-content-box {
+    gap: 30px; 
+}
+.feature-item, .value-box, .menu-item {
+    flex: 1;
+    max-width: 300px;
+}
+
+/* style.css 内の Flexbox レイアウト土台セクションを確認 */
+.affiliated-stores-vertical {
+    display: flex; /* これが横並びの親要素 */
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px; /* カード間の余白 */
+}
+
+/* ------------------------------------
+ * 系列店カードレイアウト - 最終装飾
+ * ------------------------------------ */
+.affiliated-stores-vertical {
+    /* ... 既存のスタイルを維持 ... */
+    padding-bottom: 30px; /* セクション下部余白を追加 */
+}
+
+/* ★★★ 各店舗アイテムをカード化 ★★★ */
+.store-item-vertical {
+    /* 以前は横並びでしたが、今はすべての情報を縦に詰めます */
+    flex-direction: column; 
+    align-items: flex-start; /* 左寄せ */
+    text-align: left; /* テキストも左寄せ */
+    
+    padding: 25px; /* カードの内側余白を増やす */
+    border: 1px solid #ddd;
+    background-color: #ffffff; /* 白背景 */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 影を追加 */
+    
+    /* 横幅の調整 (3列で並べるために必要) */
+    flex: 1 1 300px; /* 300pxをベースに成長 */
+    max-width: 320px;
+
+    /* ★★★ カードに影を付けて浮き上がらせる ★★★ */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+    border: 1px solid var(--color-bg-light); /* 枠線を薄くし、影を際立たせる */
+    
+    transition: transform 0.3s ease;
+}
+
+/* ★★★ ホバー時の効果を追加 ★★★ */
+.store-item-vertical:hover {
+    transform: translateY(-3px); /* 少し上に浮き上がらせる */
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2); /* 影を濃くする */
+}
+}
+
+/* ★★★ カード内の情報整理 (店名/住所/電話番号) ★★★ */
+
+/* 店名（h3）の強調 */
+.store-item-vertical h3 {
+    font-size: 20px;
+    color: var(--color-main);
+    border-bottom: 2px solid var(--color-accent); /* 赤線で強調 */
+    padding-bottom: 5px;
+    margin-bottom: 15px; /* 下部余白 */
+}
+
+/* ------------------------------------
+ * ターゲットへの共感と安心感 (Value Proposition) - 復元
+ * ------------------------------------ */
+
+/* .value-boxes を横並びに戻す */
+.value-boxes {
+    display: flex;
+    flex-direction: row; /* ★row (横並び) に戻す */
+    align-items: flex-start; /* 上端揃えに戻す */
+    justify-content: center;
+    gap: 30px; 
+    padding-bottom: 40px; 
+}
+
+/* .value-box の幅を横並び用に制限 */
+.value-box {
+    width: auto; /* width: 90% を解除 */
+    max-width: 300px; /* 横並び用の最大幅を維持 */
+    
+    /* 縦並びの Flex 設定を削除 */
+    display: block; /* Flexbox を解除 (デフォルトの縦積み) */
+    flex-direction: row; 
+    align-items: center; 
+    text-align: center;
+}
+
+.value-box:hover {
+    transform: translateY(-5px); /* 浮き上がりを復元 */
+}
+
+/* 画像プレースホルダーの高さ統一は維持 */
+.value-image-placeholder {
+    height: 180px; 
+}
+
+/* ★★★ 補足: 縦並び時に追加した関連CSSの削除 ★★★ */
+
+/* もし、.value-text-content クラスが残っていたら削除 */
+/* .value-box .value-text-content {
+    display: none; 
+} */
+/* ------------------------------------
+ * 各魅力アイテム (.value-box) の装飾強化
+ * ------------------------------------ */
+.value-box {
+flex: 1;
+    max-width: 300px;
+    padding: 25px 20px; /* パディングを調整 */
+    
+    /* ★★★ 札風デザインに変更 ★★★ */
+    border: 5px solid var(--color-main); /* 黒の太枠 */
+    background-color: #ffffff; /* 白背景 */
+    border-radius: 4px; /* 角丸を小さく */
+    
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.value-box:hover {
+transform: translateY(-5px); /* 浮き上がりを強調 */
+}
+
+/* 番号とタイトルの強調 */
+.value-box h3 {
+font-size: 24px;
+    color: #ffffff; /* ★文字色を白に */
+    background-color: var(--color-accent); /* ★背景を赤に */
+    margin-bottom: 15px;
+    border-bottom: none; 
+    padding: 5px 10px;
+    border-radius: 4px;
+    width: 100%; /* 横幅いっぱいに広げる */
+    display: block; /* ブロック要素化 */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 画像プレースホルダーの高さ統一 (前回修正済み) */
+.value-image-placeholder {
+    width: 100%;
+    height: 150px; 
+    overflow: hidden;
+    margin-bottom: 0; /* ★マージンをリセット */
+}
+
+/* テキスト部分を Flex にして、内容を縦に配置 */
+.value-text-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* 価格表示 (price-big) の装飾をさらに目立たせる */
+.price-big {
+font-size: 68px; /* ★特大サイズに拡大 */
+    color: var(--color-accent); /* 赤色 */
+    line-height: 1; 
+    text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.3); /* 影を付けて浮き上がらせる */
+}
+
+/* ★★★ レスポンシブ対応 (スマホで再び縦並びに) ★★★ */
+@media (max-width: 768px) {
+    .value-box {
+        flex-direction: column; /* スマホでは縦並びに戻す */
+        align-items: center;
+        text-align: center;
+    }
+    .value-image-placeholder {
+        width: 80%; /* 画像を中央に表示するため幅を調整 */
+    }
+}
+
+/* ------------------------------------
+ * 価格表示のフォントと色の強調
+ * ------------------------------------ */
+.price-big {
+    font-size: 68px; /* ★特大サイズに拡大 */
+    color: var(--color-accent); /* 赤色 */
+    line-height: 1; 
+    text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.3); /* 影を付けて浮き上がらせる */
+}
+
+.price-unit {
+color: var(--color-main); /* 黒色 */
+}
+
+.highlight-text {
+    font-size: 30px;
+    color: #ffffff; 
+    background-color: var(--color-main); /* ★背景を黒にして強調 */
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 10px; /* 上部余白を調整 */
+}
+
+/* ------------------------------------
+ * お客様の声/利用シーン (Review) - 装飾強化
+ * ------------------------------------ */
+.review-grid {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    padding-bottom: 30px; /* セクション下部に余白を追加 */
+}
+/* ------------------------------------
+ * お客様の声/利用シーン (Review) - スタイル追加
+ * ------------------------------------ */
+ 
+/* ★★★ 追加: 説明文のスタイル ★★★ */
+.review-lead-text {
+    font-size: 16px;
+    color: var(--color-text);
+    margin-bottom: 10px; /* タイトルとレビューグリッドの間隔 */
+    line-height: 1.6;
+    text-align: center; /* 中央寄せ */
+}
+
+/* ★★★ レビューアイテム全体に赤枠とパディングを強調 ★★★ */
+.review-item {
+    flex: 1;
+    max-width: 450px;
+    padding: 30px; /* パディングを増やす */
+    background-color: #ffffff;
+    border-radius: 8px;
+    
+    /* ★赤の枠線に修正 (以前は左側の縦線でした) */
+    border: 3px solid var(--color-accent); 
+    
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    
+    /* テキスト内容を縦に整列させる */
+    display: flex; 
+    flex-direction: column; 
+}
+
+/* ------------------------------------
+ * レビューセクション内の余白調整 (最終)
+ * ------------------------------------ */
+
+/* レビュー本文の段落マージンをリセットし、親 Flexbox に制御を委ねる */
+.review-item p {
+    margin: 0; 
+    padding: 0;
+}
+
+/* レビュー本文の行間を確保 */
+.review-item .review-body {
+    /* 行間を標準に戻す */
+    margin: 10px 0; /* 上下のマージンを最小限に戻す */
+    line-height: 1.5; /* 行間を調整 */
+}
+
+
+/* ------------------------------------
+ * レビュータグ (番号風/見出し) の装飾
+ * ------------------------------------ */
+.review-tag {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff; /* 文字色を白に */
+    
+    /* ★赤の背景と黒の枠線を追加 (「こだわり 01」風) */
+    background-color: var(--color-accent); 
+    border: 1px solid var(--color-main);
+    
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-bottom: 15px; /* 下部余白を調整 */
+    
+    align-self: flex-start; /* 左寄せ */
+}
+
+/* ★★★ 追加: レビュー本文全体を Flexbox で整列させる ★★★ */
+.review-body {
+    font-style: italic;
+    margin-bottom: 15px;
+    position: relative;
+    
+    /* レビュー本文を Flex-Grow で拡張し、縦の整列を助ける */
+    flex-grow: 1; 
+    text-align: left;
+}
+
+/* ★★★ 追加: レビューユーザー名 (30代 男性) の位置調整 ★★★ */
+.review-user {
+    display: block;
+    text-align: right;
+    font-size: 14px;
+    color: var(--color-text); /* 黒文字に戻す */
+    font-style: normal;
+    margin-top: 10px;
+}
+
+
+
+/* ------------------------------------
+ * コンセプト/魅力 (Concept) - 最終調整
+ * ------------------------------------ */
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: stretch; /* ★全体的な高さが揃うように維持 */
+}
+
+/* ★★★ 修正: feature-item の中身を縦に整列させる ★★★ */
+.feature-item {
+    flex: 1;
+    max-width: 300px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    
+    display: flex; /* ★追加: 中身をFlexアイテムとして扱う */
+    flex-direction: column; /* ★追加: 中身を縦方向に並べる */
+    align-items: center; /* ★追加: 中身の水平位置を中央揃えにする */
+}
+
+/* ★★★ 修正: 各要素の上部マージンをリセット ★★★ */
+.feature-item h3 {
+    /* ... 既存のスタイル ... */
+    margin-top: 0; /* ★追加: タイトル上部のマージンをリセット */
+}
+
+/* ★★★ 修正: 価格情報が上に詰まるようにする ★★★ */
+.feature-item p {
+    margin-top: auto; /* ★追加: 価格情報を下に押し下げる (画像の下に詰める) */
+}
+
+/* 価格情報のマージンを調整 */
+.price-highlight {
+    /* ... 既存のスタイル ... */
+    margin-top: 5px; /* ★調整: 上のマージンを減らす */
+}
+
+/* ------------------------------------
+ * ターゲットへの共感と安心感 (Value Proposition) - 装飾強化
+ * ------------------------------------ */
+.section.value-prop {
+    background-color: var(--color-yellow); /* 背景に薄い色を敷く */
+    padding: 80px 0; /* 上下の余白を広げる */
+}
+
+/* リード文の文字色を強調 */
+.review-lead-text { /* .review-lead-text クラスが #value セクションのリード文にも適用されていることを想定 */
+    color: var(--color-main); /* 黒文字でメリハリ */
+}
+
+/* セクションタイトルの下線と余白を調整 */
+.section-title {
+    font-size: 36px; /* サイズを大きく */
+    margin-bottom: 50px;
+    border-bottom: 4px solid var(--color-accent); /* 下線を太く */
+    padding-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+
+/* ------------------------------------
+ * 各魅力アイテム (.value-box) の装飾強化
+ * ------------------------------------ */
+.value-box {
+    /* ... 既存のスタイルを維持 ... */
+    
+    /* ホバー時の影を深くし、浮遊感を強調 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.value-box:hover {
+    transform: translateY(-8px); /* 浮き上がりを強くする */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* 番号とタイトルを囲む枠線を強調 */
+.value-box h3 {
+    font-size: 26px;
+    margin-bottom: 15px;
+    border: 3px solid var(--color-main); /* ★黒色の枠線を追加 */
+    background-color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    /* 以前の二重線は削除し、枠線で区切る */
+    border-bottom: none; 
+}
+
+/* ★★★ 価格表示 (KSO黒龍爽の代替フォント) の強調 ★★★ */
+.price-big {
+    font-size: 56px; /* さらに大きく */
+    color: var(--color-accent); 
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); /* 影を付けて立体感 */
+}
+
+/* ------------------------------------
+ * ヘッダー (Header) & メインビジュアル
+ * ------------------------------------ */
+.header {
+    background-color: var(--color-main);
+    color: #ffffff;
+    padding: 15px 0;
+    position: relative;
+    z-index: 900;
+}
+.header.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 900; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-out;
+}
+body.with-sticky-header {
+    padding-top: 80px; 
+}
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    font-size: 24px;
+    letter-spacing: 2px;
+}
+.header-nav a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: opacity 0.3s;
+}
+.header-nav a:hover {
+    opacity: 0.8;
+}
+.main-visual {
+    background: url('dummy-yakitori-oden.jpg') center center/cover no-repeat; 
+    height: 500px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #ffffff;
+    position: relative;
+}
+.main-visual::before {
+background-color: rgba(0, 0, 0, 0.6); /* オーバーレイは濃い黒で維持 */
+}
+.catch-copy {
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+}
+.sub-catch {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+.main-catch {
+color: #ffffff; /* ★文字色を白にして強調 */
+    /* 立体的な影を紺色で強調 */
+    text-shadow: 2px 2px 0 var(--color-main), 
+                 4px 4px 0 var(--color-navy);
+}
+.price-info {
+    font-size: 22px;
+    margin-bottom: 25px;
+    background-color: var(--color-accent);
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 5px;
+}
+.btn-reserve-large {
+    display: inline-block;
+    background-color: var(--color-accent);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 15px 30px;
+    font-size: 24px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    border: 3px solid #ffffff;
+    margin-top: 20px; 
+}
+.btn-reserve-large:hover {
+    background-color: #d82e35;
+}
+
+/* ------------------------------------
+ * 固定CTAボタン (Fixed Button) - 最終スタイル
+ * ------------------------------------ */
+.fixed-cta-button {
+    position: fixed; 
+    width: 110px; 
+    height: 110px; 
+    padding: 0; 
+    font-size: 0; 
+    border-radius: 50%; 
+    background-color: var(--color-accent);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    z-index: 1000; 
+    border: 3px solid #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    text-align: center; 
+    overflow: hidden; 
+
+    /* デフォルトではアニメーション開始位置 */
+    right: 30px; 
+    bottom: 30px;
+    transform: translateX(calc(-100vw - 20px)) translateY(-50px) rotate(0deg) scale(0.6); 
+    opacity: 0;
+    transition: none; 
+}
+.fixed-cta-button.animate-init {
+    right: 30px; 
+    bottom: 30px; 
+    transform: translateX(calc(-100vw - 20px)) translateY(-50px) rotate(0deg) scale(0.6) !important; 
+    opacity: 0 !important; 
+    transition: none !important; 
+}
+.fixed-cta-button.animated {
+    animation: slideInAndRotate 1.5s ease-out forwards;
+}
+.fixed-cta-button:hover {
+    background-color: #d82e35;
+    transform: scale(1.05); 
+}
+.fixed-cta-button .cta-icon {
+    display: block;
+    width: 80px; 
+    height: 80px;
+    background-image: url('daruma-reserve-icon.png'); 
+    background-size: 70%; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    /* アイコンを白く反転させるフィルター */
+    filter: brightness(0) invert(1); 
+}
+
+/* ------------------------------------
+ * アニメーションキーフレーム (達磨転がり)
+ * ------------------------------------ */
+@keyframes slideInAndRotate {
+    0% {
+        right: 30px; 
+        bottom: 30px; 
+        transform: translateX(calc(-100vw - 20px)) translateY(-50px) rotate(0deg) scale(0.6); 
+        opacity: 0;
+    }
+    100% {
+        right: 30px; 
+        left: auto; 
+        bottom: 30px;
+        transform: translateX(0) translateY(0) rotate(1080deg) scale(1); /* 3回転 */
+        opacity: 1;
+    }
+}
+/* ------------------------------------
+ * ロード後ポップアップ画像 (機能削除済)
+ * ------------------------------------ */
+#popup-image {
+    position: fixed;
+    top: 0; left: 0; 
+    width: 100%; height: 100vh; 
+    z-index: 9998; 
+    pointer-events: none; 
+    opacity: 0;
+    visibility: hidden;
+
+    background-image: url('popup-mascot.png'); 
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+.popup-img {
+    display: none; 
+}
+#popup-image.show {
+    animation: jumpAndFadeIn 2.0s ease-out forwards;
+}
+.popup-image-hide {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.5s, visibility 0.5s; 
+}
+
+/* ------------------------------------
+ * セクション共通 & コンテンツスタイル
+ * ------------------------------------ */
+.section {
+    padding: 80px 0;
+    text-align: center;
+}
+.bg-light {
+    background-color: var(--color-bg-light);
+}
+
+/* ------------------------------------
+ * セクション共通 - タイトル調整
+ * ------------------------------------ */
+.section-title {
+    font-size: 36px; 
+    margin-bottom: 20px; /* ★リード文との間にゆとりを持たせるため調整 */
+    color: var(--color-main);
+    display: inline-block;
+    border-bottom: 4px solid var(--color-accent); 
+    padding-bottom: 8px;
+    letter-spacing: 1px;
+}
+}
+.feature-image-placeholder, .value-image-placeholder {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+.feature-image-placeholder img, .value-image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.menu-image-placeholder {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    border-radius: 4px; 
+}
+.menu-image-placeholder .item-image {
+    width: 100%;
+    height: 100%; 
+    object-fit: cover; 
+    display: block;
+    margin-bottom: 0; 
+}
+.carousel-item-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    transition: transform 0.3s ease; 
+}
+.carousel-item-img:hover {
+    transform: scale(1.1); 
+}
+
+/* ------------------------------------
+ * コンテンツ内 Flexbox (子要素のスタイル)
+ * ------------------------------------ */
+.feature-item, .value-box, .menu-item, .review-item, .sns-item, .store-item-vertical {
+    flex: 1;
+    max-width: 300px;
+}
+
+/* ------------------------------------
+ * メニューのご紹介 (カルーセル) - 横並びとサイズ復元
+ * ------------------------------------ */
+.menu-carousel-section {
+    padding: 60px 0;
+    background-color: #ffffff; 
+}
+.carousel-container {
+    position: relative;
+    max-width: 960px; 
+    margin: 0 auto;
+}
+.carousel-window {
+    width: 100%;
+    overflow: hidden; 
+}
+/* ★★★ ここが最重要: 横並びとスライドアニメーションを定義 ★★★ */
+.carousel-track {
+    display: flex; /* これがないと縦積みになります */
+    padding: 0;
+    list-style: none;
+    margin: 0;
+    transition: transform 0.4s ease-in-out; 
+    backface-visibility: hidden; 
+    transform: translate3d(0, 0, 0); 
+    will-change: transform;
+}
+.carousel-item {
+    flex-shrink: 0; 
+    width: calc(100% / 3); /* ★ 1画面に3枚表示するための幅 */
+    box-sizing: border-box;
+    padding: 0 10px; 
+    text-align: center;
+}
+.item-img-box {
+    width: 100%;
+    height: 180px; 
+    overflow: hidden;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+.carousel-item-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+/* 左右ナビゲーションボタン */
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--color-main);
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 20px;
+    line-height: 1;
+    border-radius: 50%;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+.prev-btn {
+    left: -40px;
+}
+.next-btn {
+    right: -40px;
+}
+
+/* ------------------------------------
+ * SNS関連セクション - デザインの完全刷新
+ * ------------------------------------ */
+/* ★ セクション全体の黄色い背景と余白 */
+.sns-section {
+background-color: var(--color-bg-light); /* ★黄色から薄いグレーに変更 */
+    padding: 80px 0;
+}
+
+/* ★ 白い角丸のカードコンテナ */
+.sns-container {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 40px 20px 50px;
+    border: 3px solid var(--color-main); /* 黒枠 */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ★ 吹き出し風の黒い見出し */
+.sns-title {
+    background-color: var(--color-main); /* 黒背景 */
+    color: #ffffff;
+    font-size: 28px;
+    padding: 10px 30px;
+    border-radius: 8px;
+    position: absolute;
+    top: -25px; /* 白いボックスの上に被せる */
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    border-bottom: none;
+    white-space: nowrap; 
+}
+
+/* ★ SNSアイテムの横並びと隙間 */
+.sns-content-box {
+    display: flex; 
+    justify-content: center; 
+    gap: 80px; /* アイテム間の隙間 */
+    margin-top: 30px; 
+    flex-wrap: wrap; 
+}
+
+/* ★ 各SNSカードのスタイル */
+.sns-item {
+    display: flex; 
+    flex-direction: column; /* アイコン、テキスト、アカウントを縦に並べる */
+    align-items: center; /* 中身を中央寄せ */
+    text-align: center; 
+    flex-basis: 40%; /* 2列表示 */
+    max-width: 350px; 
+    min-width: 150px;
+    
+    padding: 15px;
+    border: 1px solid #ddd; /* カード風に枠線を追加 */
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+/* ホバーエフェクト（活気の強調） */
+.sns-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ★ SNSアイコンの表示 */
+.sns-icon {
+    display: block;
+    width: 80px; /* アイコンサイズ */
+    height: 80px;
+    margin-bottom: 10px;
+    border-radius: 15px; /* 角丸アイコンを維持 */
+    
+    background-size: cover; /* 画像全体を表示 */
+    background-position: center;
+    background-repeat: no-repeat;
+    flex-shrink: 0; 
+}
+.insta-icon {
+    background-image: url('insta-icon.png'); 
+}
+.tiktok-icon {
+    background-image: url('tiktok-icon.png'); 
+}
+
+/* ★ テキストの強調 */
+.sns-catch {
+    font-weight: bold;
+    color: var(--color-accent); /* 赤色で強調 */
+    line-height: 1.4;
+    font-size: 16px;
+    margin-bottom: 5px; 
+}
+
+.sns-account {
+    font-size: 14px;
+    color: var(--color-main); /* 黒文字 */
+}
+
+/* ------------------------------------
+ * レスポンシブ対応 (SNSセクション) - 調整
+ * ------------------------------------ */
+@media (max-width: 600px) {
+    .sns-container {
+        padding: 30px 10px 40px; 
+    }
+    .sns-content-box {
+        gap: 30px;
+        flex-direction: column; /* スマホで縦積み */
+    }
+    .sns-item {
+        flex-basis: 100%;
+    }
+}
+
+/* ------------------------------------
+ * 店舗情報/アクセス (系列店用スタイル) - 予約ボタン修正
+ * ------------------------------------ */
+.btn-store-reserve {
+    background-color: var(--color-accent); 
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: block; 
+    width: 100%; 
+    text-align: center;
+    margin-top: 15px;
+    
+    /* ★★★ 追加: ボタンスタイルの強調 ★★★ */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-store-reserve:hover {
+    background-color: #d82e35;
+    transform: translateY(-1px);
+}
+
+/* ------------------------------------
+ * メニューのご紹介 (カルーセル)
+ * ------------------------------------ */
+
+.item-price {
+    font-size: 26px; /* 価格サイズを大きく */
+    color: var(--color-accent); /* 赤色 */
+    font-weight: bold;
+    margin-top: 5px; /* 上部余白を調整 */
+    
+    /* ★追加: KSO黒龍爽の代替フォントを適用 */
+    font-family: "KSO黒龍爽", 'Arial Black', sans-serif; 
+}
+
+/* 税込価格の調整 */
+.tax-small {
+    font-size: 14px; /* 税込表示を少し大きく */
+    font-weight: normal;
+    color: var(--color-text); /* 黒色 */
+}
+
+.item-name {
+    font-weight: bold;
+    font-size: 18px; /* サイズを大きく */
+    color: var(--color-main);
+    margin-bottom: 5px; /* 下部余白を調整 */
+    border-bottom: 1px dotted var(--color-text); /* 点線で区切りを設ける */
+    padding-bottom: 2px;
+}
+
+/* ------------------------------------
+ * フッター (Footer) - 最終装飾
+ * ------------------------------------ */
+.footer {
+    background-color: var(--color-main); /* ★背景を黒に統一 */
+    color: #ffffff; /* 文字色を白に */
+    padding: 30px 0; /* パディングを増やし、ゆったりと見せる */
+    font-size: 14px;
+    text-align: center; /* 中央寄せを維持 */
+}
+
+/* 著作権情報のスタイル */
+.footer .copyright-info {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+
+/* ------------------------------------
+ * フッターリンクのスタイル
+ * ------------------------------------ */
+.footer-links {
+    display: flex;
+    justify-content: center; /* 中央寄せを維持 */
+    align-items: center;
+    gap: 10px; /* リンク間の隙間を広げる */
+}
+
+.footer-links a {
+    color: #ffffff; /* リンク色を白に統一 */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: var(--color-accent); /* ホバー時に差し色（赤）に変更 */
+    text-decoration: underline;
+}
+
+.separator {
+    color: #ffffff; /* 区切り線も白に */
+}
+
+/* ------------------------------------
+ * ターゲットへの共感と安心感 (Value Proposition) - 修正
+ * ------------------------------------ */
+
+/* ★★★ リードテキストを背景色付きの帯として強調 ★★★ */
+.lead-text {
+    font-size: 17px; /* 文字サイズを微調整 */
+    line-height: 1.6;
+    text-align: center;
+    color: var(--color-main); /* 黒文字 */
+    font-weight: 500;
+    
+    /* 背景色とパディングを追加して、帯状に目立たせる */
+    background-color: var(--color-yellow); /* 黄色背景 */
+    padding: 15px 30px; 
+    border: 1px solid var(--color-main); /* 黒い枠線を追加 */
+    border-radius: 4px;
+    
+    /* 上下の余白を調整 */
+    margin-top: 30px; 
+    margin-bottom: 50px; /* 下のコンテンツとの間にゆとり */
+    
+    /* ページの最大幅に合わせる */
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ------------------------------------
+ * ローディング画面 (New Village風)
+ * ------------------------------------ */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #ffffff; /* ★背景を白に */
+    z-index: 99999; /* 最前面に表示 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.8s ease-out, visibility 0.8s ease-out; /* フェードアウト用トランジション */
+}
+
+/* ローディング画面のロゴ */
+.loader-logo {
+    opacity: 0;
+    animation: loader-fade-in 0.5s ease-out 0.2s forwards; /* ロゴ出現アニメーション */
+}
+
+.loader-text {
+    font-family: "AH白洲毛筆太楷書体W3", 'HiraMinProN-W6', serif; /* 既存フォントの代替を使用 */
+    font-size: 32px; 
+    color: var(--color-main); /* 黒色 */
+    letter-spacing: 2px;
+}
+
+/* アニメーション定義 */
+@keyframes loader-fade-in {
+    to {
+        opacity: 1;
+    }
+}
+
+/* ★★★ ロード完了時の動作 (JavaScriptでクラス付与) ★★★ */
+#loading-screen.loaded {
+    opacity: 0; 
+    visibility: hidden;
+    pointer-events: none; /* クリック操作を無効化 */
+}
+
+/* ★★★ body のスクロール制御 (ローディング中はコンテンツを隠す) ★★★ */
+body.loading {
+    overflow: hidden !important; /* ロード中はスクロール禁止 */
+}
+body.is-loaded {
+    overflow-y: scroll; /* ロード後はスクロール許可 */
+}
