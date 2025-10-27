@@ -124,7 +124,6 @@ body {
 /* .value-boxes を横並びに戻す */
 .value-boxes {
     display: flex;
-    flex-direction: row; /* ★row (横並び) に戻す */
     align-items: flex-start; /* 上端揃えに戻す */
     justify-content: center;
     gap: 30px; 
@@ -210,13 +209,6 @@ font-size: 24px;
     flex-grow: 1;
 }
 
-/* 価格表示 (price-big) の装飾をさらに目立たせる */
-.price-big {
-font-size: 68px; /* ★特大サイズに拡大 */
-    color: var(--color-accent); /* 赤色 */
-    line-height: 1; 
-    text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.3); /* 影を付けて浮き上がらせる */
-}
 
 /* ★★★ レスポンシブ対応 (スマホで再び縦並びに) ★★★ */
 @media (max-width: 768px) {
@@ -234,7 +226,7 @@ font-size: 68px; /* ★特大サイズに拡大 */
  * 価格表示のフォントと色の強調
  * ------------------------------------ */
 .price-big {
-    font-size: 68px; /* ★特大サイズに拡大 */
+    font-size: 40px; /* ★特大サイズに拡大 */
     color: var(--color-accent); /* 赤色 */
     line-height: 1; 
     text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.3); /* 影を付けて浮き上がらせる */
@@ -447,12 +439,6 @@ color: var(--color-main); /* 黒色 */
     border-bottom: none; 
 }
 
-/* ★★★ 価格表示 (KSO黒龍爽の代替フォント) の強調 ★★★ */
-.price-big {
-    font-size: 56px; /* さらに大きく */
-    color: var(--color-accent); 
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); /* 影を付けて立体感 */
-}
 
 /* ------------------------------------
  * ヘッダー (Header) & メインビジュアル
@@ -1097,4 +1083,12 @@ body.loading {
 }
 body.is-loaded {
     overflow-y: scroll; /* ロード後はスクロール許可 */
+}
+
+/* ------------------------------------
+ * ★ 文字色修正: font-koryu を黒に強制
+ * ------------------------------------ */
+.font-koryu {
+    /* 開発用の代替フォント設定は維持 */
+    color: var(--color-main) !important; /* ★文字色を黒に強制 */
 }
