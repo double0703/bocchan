@@ -30,6 +30,11 @@ body {
     color: var(--color-text);
     font-size: var(--font-size-base);
     overflow-x: hidden;
+    overflow-y: auto; /* スクロールを確実に有効化 */
+    margin: 0;           /* 追加 */
+    padding: 0;          /* 追加 */
+    margin: 0 !important;  /* 追加 */
+    padding: 0 !important; /* 追加 */
 }
 
 body.loading {
@@ -78,8 +83,15 @@ a {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 9998;
+    z-index: 100;  /* 9998 → 100 に変更（ヘッダーより下に） */
     overflow: hidden;
+    opacity: 0;  /* 追加：初期状態で非表示 */
+    transition: opacity 0.3s ease;  /* 追加：フェードイン効果 */
+}
+
+/* 追加：紙吹雪が表示されている時のスタイル */
+#confetti-container.active {
+    opacity: 1;
 }
 
 .confetti {
@@ -110,7 +122,6 @@ a {
     left: 0;
     width: 100%;
     height: 100vh;
-    /* 暗い背景から明るい居酒屋風のグラデーションに変更 */
     background: linear-gradient(135deg, #f5e6d3 0%, #fdf5e6 50%, #fff8dc 100%);
     z-index: 99999;
     display: flex;
@@ -123,7 +134,6 @@ a {
     position: relative;
 }
 
-/* 和紙テクスチャ風の背景パターン */
 #loading-screen::before {
     content: '';
     position: absolute;
@@ -149,7 +159,6 @@ a {
     z-index: 1;
 }
 
-/* 提灯風の光の演出 */
 #loading-screen::after {
     content: '';
     position: absolute;
@@ -180,7 +189,6 @@ a {
     pointer-events: none;
 }
 
-/* 暖簾カーテン（色を明るく調整） */
 .noren-curtain {
     position: absolute;
     top: 0;
@@ -199,9 +207,8 @@ a {
     height: 100%;
     background: #b61923;
     transition: transform 1.5s cubic-bezier(0.65, 0, 0.35, 1);
-    box-shadow: 0 0 30px rgba(182, 25, 35, 0.5); /* 影を追加して存在感 */
+    box-shadow: 0 0 30px rgba(182, 25, 35, 0.5);
 }
-
 
 .noren-left {
     left: 0;
@@ -229,19 +236,6 @@ a {
     box-shadow: inset 10px 0 20px rgba(0, 0, 0, 0.3), 0 0 30px rgba(182, 25, 35, 0.5);
 }
 
-
-/* .noren-curtain::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 4px;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 100000;
-} */
-
 #loading-screen.curtain-open .noren-left {
     transform: translateX(-100%);
 }
@@ -250,7 +244,6 @@ a {
     transform: translateX(100%);
 }
 
-/* だるまコンテナ */
 .daruma-container {
     position: relative;
     z-index: 99998;
@@ -314,45 +307,39 @@ a {
     }
 }
 
-/* 筆書き風の派手なテキスト */
 .loader-text {
-    font-size: 36px; /* 32px → 36px に拡大 */
-    color: #ffffff;
-    letter-spacing: 3px; /* 2px → 3px に拡大 */
+    font-size: 36px;
+    color: var(--color-main);
+    letter-spacing: 3px;
     font-weight: bold;
     text-shadow: 
         3px 3px 0px var(--color-accent),
         6px 6px 0px rgba(195, 26, 33, 0.7),
         9px 9px 0px rgba(195, 26, 33, 0.4),
-        0 0 20px rgba(255, 255, 255, 0.5),
-        0 0 40px rgba(255, 255, 255, 0.3);
+        0 0 20px rgba(195, 26, 33, 0.3);
     margin-bottom: 15px;
     animation: text-glow 2s ease-in-out infinite;
     font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", serif;
     position: relative;
 }
 
-/* テキストが光るアニメーション */
 @keyframes text-glow {
     0%, 100% {
         text-shadow: 
             3px 3px 0px var(--color-accent),
             6px 6px 0px rgba(195, 26, 33, 0.7),
             9px 9px 0px rgba(195, 26, 33, 0.4),
-            0 0 20px rgba(255, 255, 255, 0.5),
-            0 0 40px rgba(255, 255, 255, 0.3);
+            0 0 20px rgba(195, 26, 33, 0.3);
     }
     50% {
         text-shadow: 
             3px 3px 0px var(--color-accent),
             6px 6px 0px rgba(195, 26, 33, 0.7),
             9px 9px 0px rgba(195, 26, 33, 0.4),
-            0 0 30px rgba(255, 255, 255, 0.8),
-            0 0 60px rgba(255, 255, 255, 0.5);
+            0 0 30px rgba(195, 26, 33, 0.6);
     }
 }
 
-/* 筆のストローク風のエフェクト */
 .loader-text::before {
     content: '焼き鳥 おでん 坊っちゃん';
     position: absolute;
@@ -381,17 +368,13 @@ a {
     transform: translate(-4px, -4px);
 }
 
-
-/* サブテキスト（点滅を修正） */
 .loader-subtext {
-    font-size: 18px; /* 16px → 18px に拡大 */
-    color: #cccccc;
-    letter-spacing: 6px; /* 4px → 6px に拡大 */
+    font-size: 18px;
+    color: #8b4513;
+    letter-spacing: 6px;
     font-weight: 300;
 }
 
-
-/* 点滅を防ぐため、contentではなくopacityで制御 */
 .loader-subtext::after {
     content: '...';
     display: inline-block;
@@ -401,68 +384,10 @@ a {
 }
 
 @keyframes dots-fade {
-    0% {
-        opacity: 0;
-    }
-    33% {
-        opacity: 1;
-    }
-    66% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
-/* レスポンシブ対応 */
-@media (max-width: 768px) {
-    .daruma-body {
-        width: 150px;
-        height: 150px;
-    }
-
-    .loader-text {
-        font-size: 28px; /* 24px → 28px */
-        letter-spacing: 2px;
-        text-shadow: 
-            2px 2px 0px var(--color-accent),
-            4px 4px 0px rgba(195, 26, 33, 0.7),
-            6px 6px 0px rgba(195, 26, 33, 0.4),
-            0 0 15px rgba(255, 255, 255, 0.5);
-    }
-
-    .loader-subtext {
-        font-size: 16px; /* 14px → 16px */
-        letter-spacing: 4px;
-    }
-}
-
-@media (max-width: 480px) {
-    .daruma-body {
-        width: 120px;
-        height: 120px;
-    }
-
-    .loader-text {
-        font-size: 22px; /* 20px → 22px */
-        letter-spacing: 1px;
-        text-shadow: 
-            2px 2px 0px var(--color-accent),
-            4px 4px 0px rgba(195, 26, 33, 0.7),
-            0 0 15px rgba(255, 255, 255, 0.5);
-    }
-
-    .loader-subtext {
-        font-size: 14px;
-        letter-spacing: 3px;
-    }
-}
-
-@keyframes dots-loading {
-    0% { content: '.'; }
-    33% { content: '..'; }
-    66% { content: '...'; }
+    0% { opacity: 0; }
+    33% { opacity: 1; }
+    66% { opacity: 1; }
+    100% { opacity: 0; }
 }
 
 /* ==========================================
@@ -535,7 +460,7 @@ a {
     height: auto;
     display: block;
     filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
-    animation: gentle-sway 4s ease-in-out infinite;
+    /* animation: gentle-sway 4s ease-in-out infinite; ← コメントアウトまたは削除 */
     transform-origin: top center;
     position: absolute;
     top: 0;
@@ -569,8 +494,9 @@ a {
     justify-content: center;
     text-align: center;
     position: relative;
-    padding: 80px 20px;
-    padding-top: 120px;
+    padding: 40px 20px;      /* 80px → 40px に変更 */
+    padding-top: 0;          /* 120px → 0 に変更 */
+    margin-top: 0;
     overflow: hidden;
 }
 
@@ -835,6 +761,7 @@ a {
     justify-content: center;
     color: #999;
     font-size: 14px;
+    position: relative;
 }
 
 .feature-image-placeholder img {
@@ -883,6 +810,7 @@ a {
     border-radius: 8px;
     margin-bottom: 20px;
     overflow: hidden;
+    position: relative;
 }
 
 .menu-image-placeholder img {
@@ -939,6 +867,7 @@ a {
     border-radius: 8px;
     margin-bottom: 15px;
     overflow: hidden;
+    position: relative;
 }
 
 .item-img-box img {
@@ -1005,6 +934,162 @@ a {
 }
 
 /* ==========================================
+ * Stats Counter Section (数字で見る坊っちゃん)
+ * ========================================== */
+.stats-section {
+    background-color: var(--color-light-blue);
+    padding: 80px 0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.stat-item {
+    background: #ffffff;
+    padding: 40px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: 3px solid var(--color-accent);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-accent) 0%, #ff6b6b 100%);
+}
+
+.stat-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+    animation: bounce-icon 2s ease-in-out infinite;
+}
+
+@keyframes bounce-icon {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.stat-number {
+    font-size: 56px;
+    font-weight: bold;
+    color: var(--color-accent);
+    margin-bottom: 10px;
+    font-family: 'Arial', sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stat-label {
+    font-size: 16px;
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+/* ==========================================
+ * Smoke Effect (煙エフェクト)
+ * ========================================== */
+.smoke-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.smoke {
+    position: absolute;
+    bottom: -20px;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    opacity: 0;
+    animation: smoke-rise 4s ease-out infinite;
+}
+
+.smoke:nth-child(1) {
+    left: 20%;
+    animation-delay: 0s;
+}
+
+.smoke:nth-child(2) {
+    left: 40%;
+    animation-delay: 1s;
+}
+
+.smoke:nth-child(3) {
+    left: 60%;
+    animation-delay: 2s;
+}
+
+.smoke:nth-child(4) {
+    left: 80%;
+    animation-delay: 3s;
+}
+
+@keyframes smoke-rise {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(1);
+    }
+    20% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-150px) scale(2);
+    }
+}
+
+.feature-item:hover .feature-image-placeholder::after,
+.menu-item:hover .menu-image-placeholder::after,
+.value-box:hover .value-image-placeholder::after,
+.carousel-item:hover .item-img-box::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    animation: single-smoke-rise 2s ease-out;
+    pointer-events: none;
+}
+
+@keyframes single-smoke-rise {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-100px) scale(2.5);
+    }
+}
+
+/* ==========================================
  * Value Proposition Section
  * ========================================== */
 .value-prop {
@@ -1057,6 +1142,7 @@ a {
     border-radius: 8px;
     margin-bottom: 20px;
     overflow: hidden;
+    position: relative;
 }
 
 .value-image-placeholder img {
@@ -1217,6 +1303,31 @@ a {
 }
 
 /* ==========================================
+ * Store Map (店舗マップ)
+ * ========================================== */
+.store-map {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 20px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e0e0e0;
+}
+
+.store-map iframe {
+    display: block;
+    width: 100%;
+    height: 200px;
+    border: none;
+}
+
+.store-map:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+/* ==========================================
  * Stores Section
  * ========================================== */
 .affiliated-stores-section {
@@ -1300,7 +1411,7 @@ a {
  * Footer
  * ========================================== */
 .footer {
-    background-color: #b61923; /* #000000 → #b61923 に変更 */
+    background-color: #b61923;
     color: #ffffff;
     padding: 40px 0;
     text-align: center;
@@ -1325,7 +1436,7 @@ a {
 }
 
 .footer-links a:hover {
-    color: #ffcccc; /* ホバー時は薄いピンクに変更（オプション） */
+    color: #ffcccc;
 }
 
 .separator {
@@ -1447,12 +1558,34 @@ a {
     }
 
     .main-visual {
-        padding-top: 80px;
+        padding-top: 20px;
     }
 
     .daruma-body {
         width: 150px;
         height: 150px;
+    }
+
+    #loading-screen::after {
+        width: 300px;
+        height: 300px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .stat-number {
+        font-size: 42px;
+    }
+
+    .stat-icon {
+        font-size: 36px;
+    }
+
+    .stat-label {
+        font-size: 14px;
     }
 }
 
@@ -1520,7 +1653,8 @@ a {
     .main-visual {
         min-height: 400px;
         padding: 60px 20px;
-        padding-top: 80px;
+        padding-top: 0 !important; /* 変更 */
+        margin: 0 !important;      /* 追加 */
     }
 
     .sns-title {
@@ -1553,17 +1687,23 @@ a {
         height: 40px;
     }
 
-    .daruma-body {
-        width: 150px;
-        height: 150px;
-    }
-
     .loader-text {
-        font-size: 24px;
+        font-size: 28px;
+        letter-spacing: 2px;
+        text-shadow: 
+            2px 2px 0px var(--color-accent),
+            4px 4px 0px rgba(195, 26, 33, 0.7),
+            6px 6px 0px rgba(195, 26, 33, 0.4),
+            0 0 15px rgba(195, 26, 33, 0.3);
     }
 
     .loader-subtext {
-        font-size: 14px;
+        font-size: 16px;
+        letter-spacing: 4px;
+    }
+
+    .store-map iframe {
+        height: 180px;
     }
 }
 
@@ -1625,8 +1765,44 @@ a {
         height: 120px;
     }
 
+    #loading-screen::after {
+        width: 250px;
+        height: 250px;
+    }
+
     .loader-text {
-        font-size: 20px;
+        font-size: 22px;
+        letter-spacing: 1px;
+        text-shadow: 
+            2px 2px 0px var(--color-accent),
+            4px 4px 0px rgba(195, 26, 33, 0.7),
+            0 0 15px rgba(195, 26, 33, 0.3);
+    }
+
+    .loader-subtext {
+        font-size: 14px;
+        letter-spacing: 3px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .stat-item {
+        padding: 30px 15px;
+    }
+
+    .stat-number {
+        font-size: 36px;
+    }
+
+    .stat-icon {
+        font-size: 32px;
+    }
+
+    .store-map iframe {
+        height: 150px;
     }
 }
 
@@ -1667,245 +1843,5 @@ a {
     
     .section {
         page-break-inside: avoid;
-    }
-}
-
-/* ==========================================
- * Stats Counter Section (数字で見る坊っちゃん)
- * ========================================== */
-.stats-section {
-    background-color: var(--color-light-blue);
-    padding: 80px 0;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 40px;
-    margin-top: 50px;
-}
-
-.stat-item {
-    background: #ffffff;
-    padding: 40px 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    border: 3px solid var(--color-accent);
-    position: relative;
-    overflow: hidden;
-}
-
-.stat-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, var(--color-accent) 0%, #ff6b6b 100%);
-}
-
-.stat-icon {
-    font-size: 48px;
-    margin-bottom: 15px;
-    animation: bounce-icon 2s ease-in-out infinite;
-}
-
-@keyframes bounce-icon {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-}
-
-.stat-number {
-    font-size: 56px;
-    font-weight: bold;
-    color: var(--color-accent);
-    margin-bottom: 10px;
-    font-family: 'Arial', sans-serif;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.stat-label {
-    font-size: 16px;
-    color: var(--color-text);
-    font-weight: 500;
-}
-
-/* ==========================================
- * Smoke Effect (煙エフェクト)
- * ========================================== */
-.smoke-container {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.smoke {
-    position: absolute;
-    bottom: -20px;
-    width: 80px;
-    height: 80px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 70%);
-    border-radius: 50%;
-    opacity: 0;
-    animation: smoke-rise 4s ease-out infinite;
-}
-
-.smoke:nth-child(1) {
-    left: 20%;
-    animation-delay: 0s;
-}
-
-.smoke:nth-child(2) {
-    left: 40%;
-    animation-delay: 1s;
-}
-
-.smoke:nth-child(3) {
-    left: 60%;
-    animation-delay: 2s;
-}
-
-.smoke:nth-child(4) {
-    left: 80%;
-    animation-delay: 3s;
-}
-
-@keyframes smoke-rise {
-    0% {
-        opacity: 0;
-        transform: translateY(0) scale(1);
-    }
-    20% {
-        opacity: 0.8;
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-150px) scale(2);
-    }
-}
-
-/* 料理画像に煙エフェクトを適用 */
-.feature-image-placeholder,
-.menu-image-placeholder,
-.value-image-placeholder,
-.item-img-box {
-    position: relative;
-}
-
-/* ホバー時に煙が立ち上る */
-.feature-item:hover .feature-image-placeholder::after,
-.menu-item:hover .menu-image-placeholder::after,
-.value-box:hover .value-image-placeholder::after,
-.carousel-item:hover .item-img-box::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 60px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
-    border-radius: 50%;
-    animation: single-smoke-rise 2s ease-out;
-    pointer-events: none;
-}
-
-@keyframes single-smoke-rise {
-    0% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(0) scale(1);
-    }
-    20% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(-100px) scale(2.5);
-    }
-}
-
-/* ==========================================
- * Store Map (店舗マップ)
- * ========================================== */
-.store-map {
-    width: 100%;
-    border-radius: 8px;
-    overflow: hidden;
-    margin: 20px 0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border: 2px solid #e0e0e0;
-}
-
-.store-map iframe {
-    display: block;
-    width: 100%;
-    height: 200px;
-    border: none;
-}
-
-/* マップにホバーエフェクト */
-.store-map:hover {
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
-    transition: all 0.3s ease;
-}
-
-/* ==========================================
- * Responsive Design for New Sections
- * ========================================== */
-@media (max-width: 768px) {
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-    }
-
-    .stat-number {
-        font-size: 42px;
-    }
-
-    .stat-icon {
-        font-size: 36px;
-    }
-
-    .stat-label {
-        font-size: 14px;
-    }
-
-    .store-map iframe {
-        height: 180px;
-    }
-}
-
-@media (max-width: 480px) {
-    .stats-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .stat-item {
-        padding: 30px 15px;
-    }
-
-    .stat-number {
-        font-size: 36px;
-    }
-
-    .stat-icon {
-        font-size: 32px;
-    }
-
-    .store-map iframe {
-        height: 150px;
     }
 }

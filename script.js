@@ -15,12 +15,12 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// ==========================================
-// 2. 紙吹雪エフェクト
-// ==========================================
 function createConfetti() {
     const confettiContainer = document.getElementById('confetti-container');
     if (!confettiContainer) return;
+
+    // コンテナを表示
+    confettiContainer.classList.add('active');
 
     const colors = ['#C31A21', '#ffffff', '#ff6b6b', '#ffd700'];
     const confettiCount = 50;
@@ -43,14 +43,15 @@ function createConfetti() {
         confettiContainer.appendChild(confetti);
     }
 
-    // 5秒後に紙吹雪を削除
+    // 5秒後に紙吹雪を削除してコンテナを非表示
     setTimeout(() => {
         confettiContainer.innerHTML = '';
+        confettiContainer.classList.remove('active');  // 追加：非表示に
     }, 5000);
 }
 
 // ==========================================
-// 3. Loading Screen Management - 暖簾が開く＆だるま演出
+// 3. Loading Screen Management - 統合版
 // ==========================================
 window.addEventListener('load', function() {
     const loadingScreen = document.getElementById('loading-screen');
@@ -67,16 +68,33 @@ window.addEventListener('load', function() {
         }
     }, 500);
     
-    // 4秒後にローディング画面をフェードアウト（3秒 → 4秒に延長）
+    // 4秒後にローディング画面をフェードアウト
     setTimeout(function() {
         if (loadingScreen) {
             loadingScreen.classList.add('loaded');
             console.log('Loading screen fading out');
+            
+            // ★★★ 追加：1秒後に完全に非表示（暖簾アニメーション完了後） ★★★
+            setTimeout(function() {
+                loadingScreen.style.display = 'none';
+                console.log('Loading screen removed from view');
+            }, 1000);
         }
+        
+        // スクロール位置を最上部にリセット
+        window.scrollTo(0, 0);
         
         // bodyのloadingクラスを削除
         body.classList.remove('loading');
-        console.log('Body loading class removed');
+        
+        // 確実にスクロールを有効化
+        body.style.overflow = '';
+        body.style.height = '';
+        
+        // メインコンテンツを表示
+        document.documentElement.style.overflow = '';
+        
+        console.log('Body loading class removed and scroll enabled');
         
         // 紙吹雪エフェクトを開始
         setTimeout(() => {
@@ -91,10 +109,15 @@ window.addEventListener('load', function() {
                 console.log('CTA button visible');
             }
         }, 800);
-    }, 4000); // 3000 → 4000 に変更（1秒延長）
+    }, 4000);
+    
+    // パフォーマンス計測
+    if (window.performance && window.performance.timing) {
+        const perfData = window.performance.timing;
+        const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+        console.log(`%cPage Load Time: ${pageLoadTime}ms`, 'color: #4CAF50; font-weight: bold;');
+    }
 });
-
-
 // ==========================================
 // 4. DOM Content Loaded - Main Functionality
 // ==========================================
@@ -509,7 +532,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', debounce(adjustMapHeight, 250));
 
     // ==========================================
-    // 4-10. コンソールウェルカムメッセージ
+    // 4-13. コンソールウェルカムメッセージ
     // ==========================================
     console.log('%c焼き鳥 おでん 坊っちゃん', 'font-size: 24px; color: #C31A21; font-weight: bold;');
     console.log('%cWebsite loaded successfully! 🍢🎉', 'font-size: 14px; color: #333;');
@@ -576,14 +599,3 @@ function isInViewport(element) {
         rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
 }
-
-// ==========================================
-// 7. ページ表示パフォーマンス計測（開発用）
-// ==========================================
-window.addEventListener('load', () => {
-    if (window.performance && window.performance.timing) {
-        const perfData = window.performance.timing;
-        const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-        console.log(`%cPage Load Time: ${pageLoadTime}ms`, 'color: #4CAF50; font-weight: bold;');
-    }
-});
