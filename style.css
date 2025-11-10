@@ -30,16 +30,17 @@ body {
     color: var(--color-text);
     font-size: var(--font-size-base);
     overflow-x: hidden;
-    overflow-y: auto; /* スクロールを確実に有効化 */
-    margin: 0;           /* 追加 */
-    padding: 0;          /* 追加 */
-    margin: 0 !important;  /* 追加 */
-    padding: 0 !important; /* 追加 */
+    overflow-y: hidden; /* ★変更：最初から hidden に */
+    margin: 0;
+    padding: 0;
 }
 
+/* ★削除または無効化：body.loading は不要 */
+/*
 body.loading {
     overflow: hidden;
 }
+*/
 
 img {
     max-width: 100%;
@@ -58,64 +59,6 @@ a {
     padding: 0 20px;
 }
 
-/* ==========================================
- * Scroll Progress Bar
- * ========================================== */
-#scroll-progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 0%;
-    height: 4px;
-    background: linear-gradient(90deg, var(--color-accent) 0%, #ff6b6b 100%);
-    z-index: 9999;
-    transition: width 0.1s ease-out;
-    box-shadow: 0 2px 4px rgba(195, 26, 33, 0.5);
-}
-
-/* ==========================================
- * 紙吹雪エフェクト
- * ========================================== */
-#confetti-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 100;  /* 9998 → 100 に変更（ヘッダーより下に） */
-    overflow: hidden;
-    opacity: 0;  /* 追加：初期状態で非表示 */
-    transition: opacity 0.3s ease;  /* 追加：フェードイン効果 */
-}
-
-/* 追加：紙吹雪が表示されている時のスタイル */
-#confetti-container.active {
-    opacity: 1;
-}
-
-.confetti {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    opacity: 0;
-    animation: confetti-fall 3s ease-out forwards;
-}
-
-@keyframes confetti-fall {
-    0% {
-        opacity: 1;
-        transform: translateY(-100px) rotate(0deg);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(100vh) rotate(720deg);
-    }
-}
-
-/* ==========================================
- * Loading Screen - 暖簾が開く＆だるま演出
- * ========================================== */
 #loading-screen {
     position: fixed;
     top: 0;
@@ -124,14 +67,13 @@ a {
     height: 100vh;
     background: linear-gradient(135deg, #f5e6d3 0%, #fdf5e6 50%, #fff8dc 100%);
     z-index: 99999;
-    display: flex;
+    display: flex; /* ★変更：最初から flex で表示 */
     justify-content: center;
     align-items: center;
-    opacity: 1;
-    visibility: visible;
+    opacity: 1; /* ★変更：最初から表示 */
+    visibility: visible; /* ★変更：最初から可視 */
     transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
     overflow: hidden;
-    position: relative;
 }
 
 #loading-screen::before {
@@ -308,64 +250,15 @@ a {
 }
 
 .loader-text {
-    font-size: 36px;
+    font-size: 40px;
     color: var(--color-main);
-    letter-spacing: 3px;
+    letter-spacing: 5px;
     font-weight: bold;
-    text-shadow: 
-        3px 3px 0px var(--color-accent),
-        6px 6px 0px rgba(195, 26, 33, 0.7),
-        9px 9px 0px rgba(195, 26, 33, 0.4),
-        0 0 20px rgba(195, 26, 33, 0.3);
+    text-shadow: none; /* 影なし */
     margin-bottom: 15px;
-    animation: text-glow 2s ease-in-out infinite;
-    font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", serif;
+    /* animation: text-glow 2s ease-in-out infinite; ← コメントアウト */
+    font-family: 'Yuji Boku', serif;
     position: relative;
-}
-
-@keyframes text-glow {
-    0%, 100% {
-        text-shadow: 
-            3px 3px 0px var(--color-accent),
-            6px 6px 0px rgba(195, 26, 33, 0.7),
-            9px 9px 0px rgba(195, 26, 33, 0.4),
-            0 0 20px rgba(195, 26, 33, 0.3);
-    }
-    50% {
-        text-shadow: 
-            3px 3px 0px var(--color-accent),
-            6px 6px 0px rgba(195, 26, 33, 0.7),
-            9px 9px 0px rgba(195, 26, 33, 0.4),
-            0 0 30px rgba(195, 26, 33, 0.6);
-    }
-}
-
-.loader-text::before {
-    content: '焼き鳥 おでん 坊っちゃん';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    color: var(--color-accent);
-    text-shadow: none;
-    z-index: -1;
-    opacity: 0.3;
-    transform: translate(-2px, -2px);
-}
-
-.loader-text::after {
-    content: '焼き鳥 おでん 坊っちゃん';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    color: var(--color-accent);
-    text-shadow: none;
-    z-index: -1;
-    opacity: 0.2;
-    transform: translate(-4px, -4px);
 }
 
 .loader-subtext {
@@ -1000,96 +893,6 @@ a {
 }
 
 /* ==========================================
- * Smoke Effect (煙エフェクト)
- * ========================================== */
-.smoke-container {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.smoke {
-    position: absolute;
-    bottom: -20px;
-    width: 80px;
-    height: 80px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 70%);
-    border-radius: 50%;
-    opacity: 0;
-    animation: smoke-rise 4s ease-out infinite;
-}
-
-.smoke:nth-child(1) {
-    left: 20%;
-    animation-delay: 0s;
-}
-
-.smoke:nth-child(2) {
-    left: 40%;
-    animation-delay: 1s;
-}
-
-.smoke:nth-child(3) {
-    left: 60%;
-    animation-delay: 2s;
-}
-
-.smoke:nth-child(4) {
-    left: 80%;
-    animation-delay: 3s;
-}
-
-@keyframes smoke-rise {
-    0% {
-        opacity: 0;
-        transform: translateY(0) scale(1);
-    }
-    20% {
-        opacity: 0.8;
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-150px) scale(2);
-    }
-}
-
-.feature-item:hover .feature-image-placeholder::after,
-.menu-item:hover .menu-image-placeholder::after,
-.value-box:hover .value-image-placeholder::after,
-.carousel-item:hover .item-img-box::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 60px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
-    border-radius: 50%;
-    animation: single-smoke-rise 2s ease-out;
-    pointer-events: none;
-}
-
-@keyframes single-smoke-rise {
-    0% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(0) scale(1);
-    }
-    20% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(-100px) scale(2.5);
-    }
-}
-
-/* ==========================================
  * Value Proposition Section
  * ========================================== */
 .value-prop {
@@ -1687,15 +1490,17 @@ a {
         height: 40px;
     }
 
-    .loader-text {
-        font-size: 28px;
-        letter-spacing: 2px;
-        text-shadow: 
-            2px 2px 0px var(--color-accent),
-            4px 4px 0px rgba(195, 26, 33, 0.7),
-            6px 6px 0px rgba(195, 26, 33, 0.4),
-            0 0 15px rgba(195, 26, 33, 0.3);
-    }
+.loader-text {
+    font-size: 28px;
+    letter-spacing: 3px;  /* 2px → 3px */
+    font-family: 'Yuji Boku', serif;  /* 追加 */
+    text-shadow: 
+        2px 2px 0px var(--color-accent),
+        4px 4px 0px rgba(195, 26, 33, 0.7),
+        6px 6px 0px rgba(195, 26, 33, 0.4),
+        0 0 15px rgba(195, 26, 33, 0.3);
+}
+
 
     .loader-subtext {
         font-size: 16px;
@@ -1770,14 +1575,16 @@ a {
         height: 250px;
     }
 
-    .loader-text {
-        font-size: 22px;
-        letter-spacing: 1px;
-        text-shadow: 
-            2px 2px 0px var(--color-accent),
-            4px 4px 0px rgba(195, 26, 33, 0.7),
-            0 0 15px rgba(195, 26, 33, 0.3);
-    }
+.loader-text {
+    font-size: 22px;
+    letter-spacing: 2px;  /* 1px → 2px */
+    font-family: 'Yuji Boku', serif;  /* 追加 */
+    text-shadow: 
+        2px 2px 0px var(--color-accent),
+        4px 4px 0px rgba(195, 26, 33, 0.7),
+        0 0 15px rgba(195, 26, 33, 0.3);
+}
+
 
     .loader-subtext {
         font-size: 14px;

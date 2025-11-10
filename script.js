@@ -1,57 +1,10 @@
 // ==========================================
 // Main JavaScript for 焼き鳥おでん坊っちゃん
+// エフェクト削除版（安定版）
 // ==========================================
 
 // ==========================================
-// 1. スクロール進捗バー
-// ==========================================
-window.addEventListener('scroll', () => {
-    const scrollProgress = document.getElementById('scroll-progress');
-    if (scrollProgress) {
-        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        scrollProgress.style.width = scrolled + "%";
-    }
-});
-
-function createConfetti() {
-    const confettiContainer = document.getElementById('confetti-container');
-    if (!confettiContainer) return;
-
-    // コンテナを表示
-    confettiContainer.classList.add('active');
-
-    const colors = ['#C31A21', '#ffffff', '#ff6b6b', '#ffd700'];
-    const confettiCount = 50;
-
-    for (let i = 0; i < confettiCount; i++) {
-        const confetti = document.createElement('div');
-        confetti.className = 'confetti';
-        
-        // ランダムな位置と色
-        confetti.style.left = Math.random() * 100 + '%';
-        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.animationDelay = Math.random() * 2 + 's';
-        confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-        
-        // ランダムな形（丸または四角）
-        if (Math.random() > 0.5) {
-            confetti.style.borderRadius = '50%';
-        }
-        
-        confettiContainer.appendChild(confetti);
-    }
-
-    // 5秒後に紙吹雪を削除してコンテナを非表示
-    setTimeout(() => {
-        confettiContainer.innerHTML = '';
-        confettiContainer.classList.remove('active');  // 追加：非表示に
-    }, 5000);
-}
-
-// ==========================================
-// 3. Loading Screen Management - 統合版
+// 1. Loading Screen Management - CSSベース版
 // ==========================================
 window.addEventListener('load', function() {
     const loadingScreen = document.getElementById('loading-screen');
@@ -74,7 +27,7 @@ window.addEventListener('load', function() {
             loadingScreen.classList.add('loaded');
             console.log('Loading screen fading out');
             
-            // ★★★ 追加：1秒後に完全に非表示（暖簾アニメーション完了後） ★★★
+            // 1秒後に完全に非表示（暖簾アニメーション完了後）
             setTimeout(function() {
                 loadingScreen.style.display = 'none';
                 console.log('Loading screen removed from view');
@@ -84,23 +37,11 @@ window.addEventListener('load', function() {
         // スクロール位置を最上部にリセット
         window.scrollTo(0, 0);
         
-        // bodyのloadingクラスを削除
-        body.classList.remove('loading');
+        // ★変更：bodyのスクロールを直接有効化
+        body.style.overflowY = 'auto';
+        body.style.overflowX = 'hidden';
         
-        // 確実にスクロールを有効化
-        body.style.overflow = '';
-        body.style.height = '';
-        
-        // メインコンテンツを表示
-        document.documentElement.style.overflow = '';
-        
-        console.log('Body loading class removed and scroll enabled');
-        
-        // 紙吹雪エフェクトを開始
-        setTimeout(() => {
-            createConfetti();
-            console.log('Confetti created');
-        }, 500);
+        console.log('Body scroll enabled');
         
         // 固定CTAボタンを表示
         setTimeout(function() {
@@ -118,15 +59,16 @@ window.addEventListener('load', function() {
         console.log(`%cPage Load Time: ${pageLoadTime}ms`, 'color: #4CAF50; font-weight: bold;');
     }
 });
+
 // ==========================================
-// 4. DOM Content Loaded - Main Functionality
+// 2. DOM Content Loaded - Main Functionality
 // ==========================================
 document.addEventListener('DOMContentLoaded', function() {
     
     console.log('DOM Content Loaded');
     
     // ==========================================
-    // 4-1. Intersection Observer (Fade-in Animation)
+    // 2-1. Intersection Observer (Fade-in Animation)
     // ==========================================
     const fadeInElements = document.querySelectorAll('.fade-in');
     const observerOptions = {
@@ -149,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ==========================================
-    // 4-2. パララックス効果
+    // 2-2. パララックス効果
     // ==========================================
     const parallaxSections = document.querySelectorAll('.parallax-section');
     
@@ -187,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
     handleParallax();
 
     // ==========================================
-    // 4-3. カルーセル機能
+    // 2-3. カルーセル機能
     // ==========================================
     const track = document.querySelector('.carousel-track');
     
@@ -260,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ==========================================
-    // 4-4. スムーズスクロール
+    // 2-4. スムーズスクロール
     // ==========================================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -286,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ==========================================
-    // 4-5. ヘッダースクロールエフェクト
+    // 2-5. ヘッダースクロールエフェクト
     // ==========================================
     let lastScrollTop = 0;
     const header = document.querySelector('.header');
@@ -315,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ==========================================
-    // 4-6. 画像遅延読み込みフォールバック
+    // 2-6. 画像遅延読み込みフォールバック
     // ==========================================
     if ('loading' in HTMLImageElement.prototype) {
         // ネイティブのlazy-loadingをサポート
@@ -339,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ==========================================
-    // 4-7. 3Dカードエフェクトの強化
+    // 2-7. 3Dカードエフェクトの強化
     // ==========================================
     const card3DElements = document.querySelectorAll('.card-3d');
     
@@ -374,7 +316,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ==========================================
-    // 4-8. パフォーマンス最適化
+    // 2-8. パフォーマンス最適化
     // ==========================================
     // Passive Event Listenersでスクロールパフォーマンスを改善
     const passiveSupported = (() => {
@@ -401,7 +343,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ==========================================
-    // 4-9. 提灯の揺れをスクロールに連動
+    // 2-9. 提灯の揺れをスクロールに連動
     // ==========================================
     const lanterns = document.querySelectorAll('.lantern');
     
@@ -415,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { passive: true });
 
     // ==========================================
-    // 4-10. カウントアップアニメーション
+    // 2-10. カウントアップアニメーション
     // ==========================================
     const statNumbers = document.querySelectorAll('.stat-number');
     let hasAnimated = false;
@@ -462,55 +404,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ==========================================
-    // 4-11. 煙エフェクトの追加（メニュー画像に自動で煙を追加）
-    // ==========================================
-    const addSmokeEffect = () => {
-        // メインメニューセクションの画像に煙を追加
-        const menuImages = document.querySelectorAll('.menu-image-placeholder');
-        
-        menuImages.forEach(container => {
-            // 既に煙コンテナがあれば追加しない
-            if (container.querySelector('.smoke-container')) return;
-            
-            const smokeContainer = document.createElement('div');
-            smokeContainer.className = 'smoke-container';
-            
-            // 4つの煙要素を作成
-            for (let i = 0; i < 4; i++) {
-                const smoke = document.createElement('div');
-                smoke.className = 'smoke';
-                smokeContainer.appendChild(smoke);
-            }
-            
-            container.appendChild(smokeContainer);
-        });
-
-        // カルーセルのアイテムにも煙を追加
-        const carouselItems = document.querySelectorAll('.item-img-box');
-        
-        carouselItems.forEach(container => {
-            // 既に煙コンテナがあれば追加しない
-            if (container.querySelector('.smoke-container')) return;
-            
-            const smokeContainer = document.createElement('div');
-            smokeContainer.className = 'smoke-container';
-            
-            // 3つの煙要素を作成（カルーセルは画像が小さいので少なめ）
-            for (let i = 0; i < 3; i++) {
-                const smoke = document.createElement('div');
-                smoke.className = 'smoke';
-                smokeContainer.appendChild(smoke);
-            }
-            
-            container.appendChild(smokeContainer);
-        });
-    };
-
-    // ページ読み込み後に煙エフェクトを追加
-    setTimeout(addSmokeEffect, 1000);
-
-    // ==========================================
-    // 4-12. Googleマップのレスポンシブ対応
+    // 2-11. Googleマップのレスポンシブ対応
     // ==========================================
     const adjustMapHeight = () => {
         const maps = document.querySelectorAll('.store-map iframe');
@@ -532,7 +426,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', debounce(adjustMapHeight, 250));
 
     // ==========================================
-    // 4-13. コンソールウェルカムメッセージ
+    // 2-12. コンソールウェルカムメッセージ
     // ==========================================
     console.log('%c焼き鳥 おでん 坊っちゃん', 'font-size: 24px; color: #C31A21; font-weight: bold;');
     console.log('%cWebsite loaded successfully! 🍢🎉', 'font-size: 14px; color: #333;');
@@ -540,14 +434,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ==========================================
-// 5. エラーハンドリング
+// 3. エラーハンドリング
 // ==========================================
 window.addEventListener('error', function(e) {
     console.error('An error occurred:', e.error);
 });
 
 // ==========================================
-// 6. ユーティリティ関数
+// 4. ユーティリティ関数
 // ==========================================
 
 /**
