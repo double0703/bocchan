@@ -5,52 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="焼き鳥1本99円、おでん全品199円！均一価格で安心の大衆居酒屋「坊っちゃん」。堺東店・天満店・梅田茶屋町店で営業中。">
     <title>【公式】焼き鳥 おでん 坊っちゃん | 安心・均一価格の居酒屋</title>
+    
     <!-- Google Fonts - 筆字フォント -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Yuji+Boku&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Yuji+Boku&family=Kaisei+Decol:wght@700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <!-- 暖簾が開く演出 -->
-        <div class="noren-curtain">
-            <div class="noren-left"></div>
-            <div class="noren-right"></div>
+<!-- Loading Screen -->
+<div id="loading-screen">
+    <!-- 暖簾カーテン（上に巻き上がる） -->
+    <div class="noren-curtain-new">
+        <div class="noren-panel"></div>
+    </div>
+    
+    <!-- 白背景＋キャッチコピー -->
+    <div class="catchphrase-container">
+        <div class="catchphrase catchphrase-1">
+            <h2>今日も安心して美味い</h2>
         </div>
-        
-        <!-- だるま演出 -->
-        <div class="daruma-container">
-            <div class="daruma-body">
-                <!-- だるまの画像 -->
-                <img src="daruma-cta.png" alt="だるま" class="daruma-image">
-            </div>
-            <div class="loader-text-container">
-                <h1 class="loader-text">焼き鳥 おでん 坊っちゃん</h1>
-                <p class="loader-subtext">～安心と安全で選ばれる居酒屋へ～</p>
-            </div>
+        <div class="catchphrase catchphrase-2">
+            <h2>縁起のいい一杯を</h2>
         </div>
     </div>
+    
+    <!-- 最後のロゴ表示 -->
+    <div class="final-logo">
+        <img src="daruma-road.png" alt="坊っちゃん" class="logo-image">
+    </div>
+</div>
 
-    <!-- Header -->
-    <header class="header">
-        <div class="header-left">
-            <a href="#value">「坊っちゃん」が選ばれる理由</a>
-            <a href="#stores">店舗一覧</a>
-        </div>
-        
-        <div class="header-logo">
-            <img src="noren-logo.png" alt="焼き鳥 おでん 坊っちゃん" class="noren-image">
-        </div>
-        
-        <div class="header-right">
-            <a href="#menu">メニュー</a>
-            <a href="#sns">お問い合わせ</a>
-        </div>
-    </header>
+<!-- Header -->
+<header class="header">
+    <div class="header-left">
+        <a href="#concept">3つの魅力</a>
+        <a href="#menu">メニューの紹介</a>
+        <a href="#stats">数字で見る坊っちゃん</a>
+    </div>
+    
+    <div class="header-logo">
+        <img src="noren-logo.png" alt="焼き鳥 おでん 坊っちゃん" class="noren-image">
+    </div>
+    
+    <div class="header-right">
+        <a href="#value">坊っちゃんが選ばれる理由</a>
+        <a href="#review">お客様の声</a>
+        <a href="#sns">SNS関連</a>
+    </div>
+</header>
 
     <!-- Main Visual -->
     <section class="main-visual parallax-section">

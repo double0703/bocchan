@@ -1,4 +1,17 @@
 /* ==========================================
+ * Custom Font Loading
+ * ========================================== */
+@font-face {
+    font-family: 'AH-Hakushu';
+    src: url('fonts/AH白洲毛筆太楷書体W1.woff2') format('woff2'),
+         url('fonts/AH白洲毛筆太楷書体W1.woff') format('woff'),
+         url('fonts/AH白洲毛筆太楷書体W1.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ==========================================
  * CSS Variables & Reset
  * ========================================== */
 :root {
@@ -58,71 +71,24 @@ a {
     margin: 0 auto;
     padding: 0 20px;
 }
-
+/* ==========================================
+ * Loading Screen - 新デザイン
+ * ========================================== */
 #loading-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-    background: linear-gradient(135deg, #f5e6d3 0%, #fdf5e6 50%, #fff8dc 100%);
+    background: #ffffff;
     z-index: 99999;
-    display: flex; /* ★変更：最初から flex で表示 */
+    display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 1; /* ★変更：最初から表示 */
-    visibility: visible; /* ★変更：最初から可視 */
+    opacity: 1;
+    visibility: visible;
     transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
     overflow: hidden;
-}
-
-#loading-screen::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent 2px,
-            rgba(139, 69, 19, 0.02) 2px,
-            rgba(139, 69, 19, 0.02) 4px
-        ),
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 2px,
-            rgba(139, 69, 19, 0.02) 2px,
-            rgba(139, 69, 19, 0.02) 4px
-        );
-    z-index: 1;
-}
-
-#loading-screen::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(255, 200, 100, 0.3) 0%, transparent 70%);
-    animation: lantern-glow 3s ease-in-out infinite;
-    z-index: 0;
-}
-
-@keyframes lantern-glow {
-    0%, 100% {
-        opacity: 0.6;
-        transform: translate(-50%, -50%) scale(1);
-    }
-    50% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1.1);
-    }
 }
 
 #loading-screen.loaded {
@@ -131,7 +97,10 @@ a {
     pointer-events: none;
 }
 
-.noren-curtain {
+/* ==========================================
+ * 暖簾カーテン - 上に巻き上がる
+ * ========================================== */
+.noren-curtain-new {
     position: absolute;
     top: 0;
     left: 0;
@@ -141,148 +110,192 @@ a {
     pointer-events: none;
 }
 
-.noren-left,
-.noren-right {
+.noren-panel {
     position: absolute;
     top: 0;
-    width: 50%;
-    height: 100%;
-    background: #b61923;
-    transition: transform 1.5s cubic-bezier(0.65, 0, 0.35, 1);
-    box-shadow: 0 0 30px rgba(182, 25, 35, 0.5);
-}
-
-.noren-left {
     left: 0;
-    background: 
+    width: 100%;
+    height: 100%;
+    background: #242f5d;
+    background-image: 
         repeating-linear-gradient(
             90deg,
-            #b61923,
-            #b61923 60px,
-            #a01820 60px,
-            #a01820 63px
+            #242f5d,
+            #242f5d 60px,
+            #1e2850 60px,
+            #1e2850 63px
         );
-    box-shadow: inset -10px 0 20px rgba(0, 0, 0, 0.3), 0 0 30px rgba(182, 25, 35, 0.5);
+    box-shadow: 
+        inset 0 -20px 40px rgba(0, 0, 0, 0.3),
+        0 10px 30px rgba(36, 47, 93, 0.5);
+    transform-origin: top center;
+    transition: transform 1.5s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-.noren-right {
-    right: 0;
-    background: 
-        repeating-linear-gradient(
-            90deg,
-            #b61923,
-            #b61923 60px,
-            #a01820 60px,
-            #a01820 63px
-        );
-    box-shadow: inset 10px 0 20px rgba(0, 0, 0, 0.3), 0 0 30px rgba(182, 25, 35, 0.5);
+/* 暖簾が巻き上がる */
+#loading-screen.curtain-open .noren-panel {
+    transform: translateY(-100%) scaleY(0.1);
 }
 
-#loading-screen.curtain-open .noren-left {
-    transform: translateX(-100%);
-}
-
-#loading-screen.curtain-open .noren-right {
-    transform: translateX(100%);
-}
-
-.daruma-container {
-    position: relative;
+/* ==========================================
+ * キャッチコピー表示
+ * ========================================== */
+.catchphrase-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 99998;
+    background: #ffffff;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out; /* ★追加 */
+}
+
+/* ★追加：コンテナを非表示にするクラス */
+.catchphrase-container.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.catchphrase {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.catchphrase h2 {
+    font-size: 48px;
+    font-weight: 700;
+    color: #000000;
+    font-family: 'Kaisei Decol', 'Yuji Boku', serif; /* ★力強い楷書体 */
+    letter-spacing: 8px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+
+/* キャッチコピー1のアニメーション */
+.catchphrase-1.show {
+    opacity: 1;
+    visibility: visible;
+    animation: slideInBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.catchphrase-1.hide {
+    animation: fadeOutUp 0.5s ease-out forwards;
+}
+
+/* キャッチコピー2のアニメーション */
+.catchphrase-2.show {
+    opacity: 1;
+    visibility: visible;
+    animation: slideInBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.catchphrase-2.hide {
+    animation: fadeOutUp 0.5s ease-out forwards;
+}
+
+@keyframes slideInBounce {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes fadeOutUp {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -80%) scale(0.9);
+        visibility: hidden;
+    }
+}
+/* ==========================================
+ * 最終ロゴ表示 - 本番用
+ * ========================================== */
+.final-logo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 30px;
     opacity: 0;
-    animation: daruma-appear 0.8s ease-out 1s forwards;
+    visibility: hidden;
+    z-index: 100000;
 }
 
-@keyframes daruma-appear {
+.final-logo.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: flex !important;
+    animation: logoAppear 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes logoAppear {
     0% {
         opacity: 0;
-        transform: scale(0.5) translateY(50px);
+        transform: translate(-50%, -50%) scale(0.3) rotate(-180deg);
     }
     100% {
         opacity: 1;
-        transform: scale(1) translateY(0);
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
     }
 }
 
-.daruma-body {
+.logo-image {
     width: 200px;
     height: 200px;
-    position: relative;
-    animation: daruma-bounce 2s ease-in-out infinite 1.8s;
+    object-fit: contain;
     filter: drop-shadow(0 10px 30px rgba(195, 26, 33, 0.5));
 }
 
-@keyframes daruma-bounce {
-    0%, 100% {
-        transform: translateY(0);
+/* ==========================================
+ * レスポンシブ対応 - ローディング画面
+ * ========================================== */
+@media (max-width: 768px) {
+    .catchphrase h2 {
+        font-size: 32px;
+        letter-spacing: 5px;
+        font-family: 'Kaisei Decol', 'Yuji Boku', serif;
     }
-    50% {
-        transform: translateY(-15px);
-    }
-}
-
-.daruma-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-}
-
-.loader-text-container {
-    text-align: center;
-    opacity: 0;
-    animation: text-appear 0.8s ease-out 2s forwards;
-}
-
-@keyframes text-appear {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
+    
+    .logo-image {
+        width: 150px;
+        height: 150px;
     }
 }
-
-.loader-text {
-    font-size: 40px;
-    color: var(--color-main);
-    letter-spacing: 5px;
-    font-weight: bold;
-    text-shadow: none; /* 影なし */
-    margin-bottom: 15px;
-    /* animation: text-glow 2s ease-in-out infinite; ← コメントアウト */
-    font-family: 'Yuji Boku', serif;
-    position: relative;
+    
+@media (max-width: 480px) {
+    .catchphrase h2 {
+        font-size: 24px;
+        letter-spacing: 3px;
+        font-family: 'Kaisei Decol', 'Yuji Boku', serif;
+    }
+    
+    .logo-image {
+        width: 120px;
+        height: 120px;
+    }
 }
-
-.loader-subtext {
-    font-size: 18px;
-    color: #8b4513;
-    letter-spacing: 6px;
-    font-weight: 300;
-}
-
-.loader-subtext::after {
-    content: '...';
-    display: inline-block;
-    width: 30px;
-    text-align: left;
-    animation: dots-fade 1.5s infinite;
-}
-
-@keyframes dots-fade {
-    0% { opacity: 0; }
-    33% { opacity: 1; }
-    66% { opacity: 1; }
-    100% { opacity: 0; }
-}
-
+    
 /* ==========================================
  * Header
  * ========================================== */
@@ -346,6 +359,8 @@ a {
     z-index: 910;
     height: 70px;
     overflow: visible;
+    padding: 0; /* ★追加 */
+    margin: 0;  /* ★追加 */
 }
 
 .noren-image {
@@ -356,7 +371,7 @@ a {
     /* animation: gentle-sway 4s ease-in-out infinite; ← コメントアウトまたは削除 */
     transform-origin: top center;
     position: absolute;
-    top: 0;
+    top: -5px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1332,7 +1347,7 @@ a {
     .noren-image {
         width: 260px;
         position: relative;
-        top: 0;
+        top: -5px; /* ★追加 */
         left: 0;
         transform: none;
         animation: none;
@@ -1545,6 +1560,7 @@ a {
     
     .noren-image {
         width: 170px;
+        top: -5px; /* ★追加 */
     }
 
     .fixed-cta-button {

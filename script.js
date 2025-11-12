@@ -2,32 +2,89 @@
 // Main JavaScript for 焼き鳥おでん坊っちゃん
 // エフェクト削除版（安定版）
 // ==========================================
-
 // ==========================================
-// 1. Loading Screen Management - CSSベース版
+// 1. Loading Screen Management - 新アニメーション
 // ==========================================
 window.addEventListener('load', function() {
     const loadingScreen = document.getElementById('loading-screen');
     const body = document.body;
     const fixedCtaButton = document.querySelector('.fixed-cta-button');
+    const catchphrase1 = document.querySelector('.catchphrase-1');
+    const catchphrase2 = document.querySelector('.catchphrase-2');
+    const finalLogo = document.querySelector('.final-logo');
     
-    console.log('Page loaded, starting loading animation');
+    console.log('Page loaded, starting new loading animation');
     
-    // 0.5秒後に暖簾が開き始める
+    // タイムライン
+    // 0秒：暖簾が上に巻き上がる
     setTimeout(function() {
         if (loadingScreen) {
             loadingScreen.classList.add('curtain-open');
-            console.log('Curtain opening');
+            console.log('Curtain rolling up');
         }
-    }, 500);
+    }, 100);
     
-    // 4秒後にローディング画面をフェードアウト
+    // 1.5秒：「今日も安心して美味い」表示
+    setTimeout(function() {
+        if (catchphrase1) {
+            catchphrase1.classList.add('show');
+            console.log('Catchphrase 1 shown');
+        }
+    }, 1500);
+    
+    // 3秒：「今日も安心して美味い」フェードアウト
+    setTimeout(function() {
+        if (catchphrase1) {
+            catchphrase1.classList.remove('show');
+            catchphrase1.classList.add('hide');
+            console.log('Catchphrase 1 hidden');
+        }
+    }, 3000);
+    
+    // 3.5秒：「縁起のいい一杯を」表示
+    setTimeout(function() {
+        if (catchphrase2) {
+            catchphrase2.classList.add('show');
+            console.log('Catchphrase 2 shown');
+        }
+    }, 3500);
+    
+// 5秒：「縁起のいい一杯を」フェードアウト
+setTimeout(function() {
+    if (catchphrase2) {
+        catchphrase2.classList.remove('show');
+        catchphrase2.classList.add('hide');
+        console.log('Catchphrase 2 hidden');
+    }
+}, 5000);
+
+// 5.3秒：キャッチコピーコンテナを完全に非表示
+setTimeout(function() {
+    const catchphraseContainer = document.querySelector('.catchphrase-container');
+    if (catchphraseContainer) {
+        catchphraseContainer.style.display = 'none';
+        console.log('Catchphrase container hidden');
+    }
+}, 5300);
+
+// 5.5秒：ロゴ表示
+setTimeout(function() {
+    const finalLogo = document.querySelector('.final-logo');
+    if (finalLogo) {
+        finalLogo.classList.add('show');
+        finalLogo.style.zIndex = '100000';
+        console.log('Logo shown');
+    }
+}, 5500);
+
+
+    // 7秒：ローディング画面全体をフェードアウト
     setTimeout(function() {
         if (loadingScreen) {
             loadingScreen.classList.add('loaded');
             console.log('Loading screen fading out');
             
-            // 1秒後に完全に非表示（暖簾アニメーション完了後）
+            // 1秒後に完全に非表示
             setTimeout(function() {
                 loadingScreen.style.display = 'none';
                 console.log('Loading screen removed from view');
@@ -37,7 +94,7 @@ window.addEventListener('load', function() {
         // スクロール位置を最上部にリセット
         window.scrollTo(0, 0);
         
-        // ★変更：bodyのスクロールを直接有効化
+        // bodyのスクロールを有効化
         body.style.overflowY = 'auto';
         body.style.overflowX = 'hidden';
         
@@ -50,7 +107,7 @@ window.addEventListener('load', function() {
                 console.log('CTA button visible');
             }
         }, 800);
-    }, 4000);
+    }, 7000);
     
     // パフォーマンス計測
     if (window.performance && window.performance.timing) {
