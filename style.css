@@ -1,11 +1,9 @@
 /* ==========================================
- * Custom Font Loading
+ * Custom Font Loading - 玉ねぎ楷書
  * ========================================== */
 @font-face {
-    font-family: 'AH-Hakushu';
-    src: url('fonts/AH白洲毛筆太楷書体W1.woff2') format('woff2'),
-         url('fonts/AH白洲毛筆太楷書体W1.woff') format('woff'),
-         url('fonts/AH白洲毛筆太楷書体W1.otf') format('opentype');
+    font-family: 'TamanegiKaisho';
+    src: url('./fonts/tamanegi_kaisho_free.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -138,7 +136,7 @@ a {
 }
 
 /* ==========================================
- * キャッチコピー表示
+ * キャッチコピー表示 - 1文字ずつフェード版
  * ========================================== */
 .catchphrase-container {
     position: absolute;
@@ -151,14 +149,6 @@ a {
     align-items: center;
     z-index: 99998;
     background: #ffffff;
-    transition: opacity 0.5s ease-out, visibility 0.5s ease-out; /* ★追加 */
-}
-
-/* ★追加：コンテナを非表示にするクラス */
-.catchphrase-container.hide {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
 }
 
 .catchphrase {
@@ -166,65 +156,51 @@ a {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    opacity: 0;
-    visibility: hidden;
+    opacity: 0; /* ★0に戻す */
+    visibility: hidden; /* ★hiddenに戻す */
 }
 
 .catchphrase h2 {
-    font-size: 48px;
-    font-weight: 700;
+    font-size: 60px;
+    font-weight: bold;
     color: #000000;
-    font-family: 'Kaisei Decol', 'Yuji Boku', serif; /* ★力強い楷書体 */
-    letter-spacing: 8px;
+    font-family: 'TamanegiKaisho', 'Yuji Boku', 'Kaisei Decol', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    letter-spacing: 10px;
     text-align: center;
     white-space: nowrap;
+    -webkit-text-stroke: 0.5px #000000; /* ★追加：エッジを強調 */
 }
 
-
-/* キャッチコピー1のアニメーション */
-.catchphrase-1.show {
-    opacity: 1;
-    visibility: visible;
-    animation: slideInBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+.catchphrase h2 span {
+    display: inline-block;
+    font-family: 'TamanegiKaisho', serif !important;
+    font-weight: normal !important;
 }
 
-.catchphrase-1.hide {
-    animation: fadeOutUp 0.5s ease-out forwards;
+/* 特定の文字用のフォールバック */
+.catchphrase h2 span[data-char="縁"],
+.catchphrase h2 span[data-char="一"] {
+    font-family: 'TamanegiKaisho', 'Yuji Boku', 'Hiragino Mincho ProN', serif !important;
 }
 
-/* キャッチコピー2のアニメーション */
-.catchphrase-2.show {
-    opacity: 1;
-    visibility: visible;
-    animation: slideInBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.catchphrase-2.hide {
-    animation: fadeOutUp 0.5s ease-out forwards;
-}
-
-@keyframes slideInBounce {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.5);
-    }
-    100% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .catchphrase h2 {
+        font-size: 40px;
+        letter-spacing: 6px;
+        font-family: 'TamanegiKaisho', 'Yuji Boku', 'Kaisei Decol', 'Hiragino Mincho ProN', 'Yu Mincho', serif; /* ★修正 */
     }
 }
 
-@keyframes fadeOutUp {
-    0% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: translate(-50%, -80%) scale(0.9);
-        visibility: hidden;
+
+@media (max-width: 480px) {
+    .catchphrase h2 {
+        font-size: 28px;
+        letter-spacing: 4px;
+        font-family: 'TamanegiKaisho', 'Yuji Boku', 'Kaisei Decol', 'Hiragino Mincho ProN', 'Yu Mincho', serif; /* ★修正 */
     }
 }
+
 /* ==========================================
  * 最終ロゴ表示 - 本番用
  * ========================================== */
@@ -252,11 +228,11 @@ a {
 @keyframes logoAppear {
     0% {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(0.3) rotate(-180deg);
+        transform: translate(-50%, -50%) scale(0.3);
     }
     100% {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        transform: translate(-50%, -50%) scale(1);
     }
 }
 
@@ -264,7 +240,7 @@ a {
     width: 200px;
     height: 200px;
     object-fit: contain;
-    filter: drop-shadow(0 10px 30px rgba(195, 26, 33, 0.5));
+    filter: none;
 }
 
 /* ==========================================
@@ -1333,6 +1309,7 @@ a {
         flex-wrap: wrap;
         min-height: auto;
         overflow: hidden;
+        padding: 0; /* ★確認 */
     }
     
     .header-logo {
@@ -1340,14 +1317,15 @@ a {
         width: 100%;
         justify-content: center;
         height: auto;
-        padding: 10px 0;
+        padding: 5px 0; /* ★変更：10px → 5px */
         background-color: var(--color-header);
+        margin: 0; /* ★追加 */
     }
     
     .noren-image {
-        width: 260px;
+        width: 200px; /* ★変更：260px → 200px */
         position: relative;
-        top: -5px; /* ★追加 */
+        top: -5px;
         left: 0;
         transform: none;
         animation: none;
@@ -1357,12 +1335,12 @@ a {
     .header-right {
         flex: 1;
         justify-content: center;
-        padding: 10px;
+        padding: 8px; /* ★変更：10px → 8px */
     }
     
     .header-left a,
     .header-right a {
-        padding: 8px 15px;
+        padding: 6px 12px; /* ★変更：8px 15px → 6px 12px */
         font-size: 14px;
     }
 
@@ -1455,17 +1433,24 @@ a {
     .header-right {
         flex-direction: column;
         align-items: stretch;
+        padding: 5px; /* ★変更：削減 */
+    }
+
+        .header-logo {
+        padding: 3px 0; /* ★追加 */
     }
     
     .header-left a,
     .header-right a {
-        padding: 8px;
+        padding: 6px; /* ★変更：8px → 6px */
         text-align: center;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 13px; /* ★追加 */
     }
     
     .noren-image {
-        width: 200px;
+        width: 160px; /* ★変更：200px → 160px */
+        top: -5px; /* ★追加 */
     }
 
     .main-visual {
@@ -1516,7 +1501,6 @@ a {
         0 0 15px rgba(195, 26, 33, 0.3);
 }
 
-
     .loader-subtext {
         font-size: 16px;
         letter-spacing: 4px;
@@ -1554,13 +1538,17 @@ a {
 
     .header-left a,
     .header-right a {
-        font-size: 13px;
-        padding: 6px;
+        font-size: 12px; /* ★変更：13px → 12px */
+        padding: 5px; /* ★変更：6px → 5px */
     }
     
     .noren-image {
-        width: 170px;
-        top: -5px; /* ★追加 */
+        width: 140px; /* ★変更：170px → 140px */
+        top: -5px; /* ★確認 */
+    }
+
+        .header-logo {
+        padding: 2px 0; /* ★追加：さらに圧縮 */
     }
 
     .fixed-cta-button {

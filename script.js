@@ -1,9 +1,5 @@
 // ==========================================
-// Main JavaScript for 焼き鳥おでん坊っちゃん
-// エフェクト削除版（安定版）
-// ==========================================
-// ==========================================
-// 1. Loading Screen Management - 新アニメーション
+// 1. Loading Screen Management - 1文字ずつフェードイン版（完全版）
 // ==========================================
 window.addEventListener('load', function() {
     const loadingScreen = document.getElementById('loading-screen');
@@ -15,6 +11,71 @@ window.addEventListener('load', function() {
     
     console.log('Page loaded, starting new loading animation');
     
+    // テキストを1文字ずつspanで囲む（改良版）
+    function wrapChars(element, text) {
+        const h2 = element.querySelector('h2');
+        h2.innerHTML = '';
+        
+        // 文字を配列に変換（サロゲートペア対応）
+        const chars = Array.from(text);
+        
+        chars.forEach((char, index) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.style.opacity = '0';
+            span.style.display = 'inline-block';
+            span.style.transform = 'translateY(20px)';
+            h2.appendChild(span);
+        });
+        
+        console.log(`Wrapped ${chars.length} characters:`, text);
+    }
+    
+    // 1文字ずつフェードイン
+    function fadeInChars(element, delay = 50, callback) {
+        element.style.opacity = '1';
+        element.style.visibility = 'visible';
+        
+        const spans = element.querySelectorAll('h2 span');
+        let completed = 0;
+        
+        spans.forEach((span, index) => {
+            setTimeout(() => {
+                span.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                span.style.opacity = '1';
+                span.style.transform = 'translateY(0)';
+                
+                completed++;
+                if (completed === spans.length && callback) {
+                    callback();
+                }
+            }, index * delay);
+        });
+    }
+    
+    // 1文字ずつフェードアウト（下方向）
+    function fadeOutChars(element, delay = 40, callback) {
+        const spans = element.querySelectorAll('h2 span');
+        let completed = 0;
+        
+        spans.forEach((span, index) => {
+            setTimeout(() => {
+                span.style.transition = 'opacity 0.3s ease, transform 0.5s ease';
+                span.style.opacity = '0';
+                span.style.transform = 'translateY(50px)';
+                
+                completed++;
+                if (completed === spans.length) {
+                    element.style.opacity = '0';
+                    element.style.visibility = 'hidden';
+                    if (callback) {
+                        callback();
+                    }
+                }
+            }, index * delay);
+        });
+    }
+    
     // タイムライン
     // 0秒：暖簾が上に巻き上がる
     setTimeout(function() {
@@ -24,61 +85,71 @@ window.addEventListener('load', function() {
         }
     }, 100);
     
-    // 1.5秒：「今日も安心して美味い」表示
+    // 1.4秒：「今日も安心して美味い」準備
     setTimeout(function() {
         if (catchphrase1) {
-            catchphrase1.classList.add('show');
-            console.log('Catchphrase 1 shown');
+            wrapChars(catchphrase1, '今日も安心して美味い');
+        }
+    }, 1400);
+    
+    // 1.5秒：「今日も安心して美味い」フェードイン開始
+    setTimeout(function() {
+        if (catchphrase1) {
+            fadeInChars(catchphrase1, 60);
+            console.log('Catchphrase 1 fading in');
         }
     }, 1500);
     
-    // 3秒：「今日も安心して美味い」フェードアウト
+    // 3.5秒：「今日も安心して美味い」フェードアウト
     setTimeout(function() {
         if (catchphrase1) {
-            catchphrase1.classList.remove('show');
-            catchphrase1.classList.add('hide');
-            console.log('Catchphrase 1 hidden');
-        }
-    }, 3000);
-    
-    // 3.5秒：「縁起のいい一杯を」表示
-    setTimeout(function() {
-        if (catchphrase2) {
-            catchphrase2.classList.add('show');
-            console.log('Catchphrase 2 shown');
+            fadeOutChars(catchphrase1, 50);
+            console.log('Catchphrase 1 fading out');
         }
     }, 3500);
     
-// 5秒：「縁起のいい一杯を」フェードアウト
-setTimeout(function() {
-    if (catchphrase2) {
-        catchphrase2.classList.remove('show');
-        catchphrase2.classList.add('hide');
-        console.log('Catchphrase 2 hidden');
-    }
-}, 5000);
-
-// 5.3秒：キャッチコピーコンテナを完全に非表示
-setTimeout(function() {
-    const catchphraseContainer = document.querySelector('.catchphrase-container');
-    if (catchphraseContainer) {
-        catchphraseContainer.style.display = 'none';
-        console.log('Catchphrase container hidden');
-    }
-}, 5300);
-
-// 5.5秒：ロゴ表示
-setTimeout(function() {
-    const finalLogo = document.querySelector('.final-logo');
-    if (finalLogo) {
-        finalLogo.classList.add('show');
-        finalLogo.style.zIndex = '100000';
-        console.log('Logo shown');
-    }
-}, 5500);
-
-
-    // 7秒：ローディング画面全体をフェードアウト
+    // 4.4秒：「縁起のいい一杯を」準備
+    setTimeout(function() {
+        if (catchphrase2) {
+            wrapChars(catchphrase2, '縁起のいい一杯を');
+        }
+    }, 4400);
+    
+    // 4.5秒：「縁起のいい一杯を」フェードイン開始
+    setTimeout(function() {
+        if (catchphrase2) {
+            fadeInChars(catchphrase2, 70);
+            console.log('Catchphrase 2 fading in');
+        }
+    }, 4500);
+    
+    // 6.2秒：「縁起のいい一杯を」フェードアウト
+    setTimeout(function() {
+        if (catchphrase2) {
+            fadeOutChars(catchphrase2, 60);
+            console.log('Catchphrase 2 fading out');
+        }
+    }, 6200);
+    
+    // 7秒：キャッチコピーコンテナを完全に非表示
+    setTimeout(function() {
+        const catchphraseContainer = document.querySelector('.catchphrase-container');
+        if (catchphraseContainer) {
+            catchphraseContainer.style.display = 'none';
+            console.log('Catchphrase container hidden');
+        }
+    }, 7000);
+    
+    // 7.2秒：ロゴ表示
+    setTimeout(function() {
+        if (finalLogo) {
+            finalLogo.classList.add('show');
+            finalLogo.style.zIndex = '100000';
+            console.log('Logo shown');
+        }
+    }, 7200);
+    
+    // 8.5秒：ローディング画面全体をフェードアウト
     setTimeout(function() {
         if (loadingScreen) {
             loadingScreen.classList.add('loaded');
@@ -107,7 +178,7 @@ setTimeout(function() {
                 console.log('CTA button visible');
             }
         }, 800);
-    }, 7000);
+    }, 8500);
     
     // パフォーマンス計測
     if (window.performance && window.performance.timing) {
@@ -116,7 +187,6 @@ setTimeout(function() {
         console.log(`%cPage Load Time: ${pageLoadTime}ms`, 'color: #4CAF50; font-weight: bold;');
     }
 });
-
 // ==========================================
 // 2. DOM Content Loaded - Main Functionality
 // ==========================================
