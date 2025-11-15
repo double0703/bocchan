@@ -11,26 +11,37 @@ window.addEventListener('load', function() {
     
     console.log('Page loaded, starting new loading animation');
     
-    // テキストを1文字ずつspanで囲む（改良版）
-    function wrapChars(element, text) {
-        const h2 = element.querySelector('h2');
-        h2.innerHTML = '';
-        
-        // 文字を配列に変換（サロゲートペア対応）
-        const chars = Array.from(text);
-        
-        chars.forEach((char, index) => {
-            const span = document.createElement('span');
-            span.textContent = char;
-            span.style.opacity = '0';
-            span.style.display = 'inline-block';
-            span.style.transform = 'translateY(20px)';
-            h2.appendChild(span);
-        });
-        
-        console.log(`Wrapped ${chars.length} characters:`, text);
-    }
+    // テキストを1文字ずつspanで囲む（フォント明示版）
+function wrapChars(element, text) {
+    const h2 = element.querySelector('h2');
+    h2.innerHTML = '';
     
+    const chars = Array.from(text);
+    
+    console.log('=== wrapChars デバッグ ===');
+    console.log('テキスト:', text);
+    console.log('文字数:', chars.length);
+    
+    chars.forEach((char, index) => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.style.opacity = '0';
+        span.style.display = 'inline-block';
+        span.style.transform = 'translateY(20px)';
+        
+        // ★フォールバックを優先
+        span.style.fontFamily = "'TamanegiKaisho', 'Yuji Boku', serif";
+        span.style.fontWeight = 'normal';
+        
+        h2.appendChild(span);
+        
+        console.log(`文字 ${index}: "${char}"`);
+    });
+    
+    console.log('生成されたspan数:', chars.length);
+    console.log('========================');
+}
+
     // 1文字ずつフェードイン
     function fadeInChars(element, delay = 50, callback) {
         element.style.opacity = '1';
@@ -108,28 +119,28 @@ window.addEventListener('load', function() {
         }
     }, 3500);
     
-    // 4.4秒：「縁起のいい一杯を」準備
-    setTimeout(function() {
-        if (catchphrase2) {
-            wrapChars(catchphrase2, '縁起のいい一杯を');
-        }
-    }, 4400);
-    
-    // 4.5秒：「縁起のいい一杯を」フェードイン開始
-    setTimeout(function() {
-        if (catchphrase2) {
-            fadeInChars(catchphrase2, 70);
-            console.log('Catchphrase 2 fading in');
-        }
-    }, 4500);
-    
-    // 6.2秒：「縁起のいい一杯を」フェードアウト
-    setTimeout(function() {
-        if (catchphrase2) {
-            fadeOutChars(catchphrase2, 60);
-            console.log('Catchphrase 2 fading out');
-        }
-    }, 6200);
+// 4.4秒：「最高の１杯を」準備
+setTimeout(function() {
+    if (catchphrase2) {
+        wrapChars(catchphrase2, '特別で最高な時間を！'); // ★変更
+    }
+}, 4400);
+
+// 4.5秒：「最高の１杯を」フェードイン開始
+setTimeout(function() {
+    if (catchphrase2) {
+        fadeInChars(catchphrase2, 70);
+        console.log('Catchphrase 2 fading in');
+    }
+}, 4500);
+
+// 6.2秒：「最高の１杯を」フェードアウト
+setTimeout(function() {
+    if (catchphrase2) {
+        fadeOutChars(catchphrase2, 60);
+        console.log('Catchphrase 2 fading out');
+    }
+}, 6200);
     
     // 7秒：キャッチコピーコンテナを完全に非表示
     setTimeout(function() {

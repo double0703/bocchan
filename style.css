@@ -162,25 +162,30 @@ a {
 
 .catchphrase h2 {
     font-size: 60px;
-    font-weight: bold;
+    font-weight: 900;
     color: #000000;
-    font-family: 'TamanegiKaisho', 'Yuji Boku', 'Kaisei Decol', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    font-family: 'TamanegiKaisho', 'Yuji Boku', serif; /* ★Yuji Bokuを優先フォールバックに */
     letter-spacing: 10px;
     text-align: center;
     white-space: nowrap;
-    -webkit-text-stroke: 0.5px #000000; /* ★追加：エッジを強調 */
+
+        /* ★筆感を強化するエフェクト */
+    text-shadow: 
+        1px 1px 0px rgba(0, 0, 0, 0.3),
+        2px 2px 1px rgba(0, 0, 0, 0.2),
+        3px 3px 2px rgba(0, 0, 0, 0.1);
+    
+    /* ★文字の輪郭を強調 */
+    -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.3);
+    
+    /* ★コントラストを強化 */
+    filter: contrast(1.15) brightness(0.95);
+}
 }
 
 .catchphrase h2 span {
     display: inline-block;
-    font-family: 'TamanegiKaisho', serif !important;
-    font-weight: normal !important;
-}
-
-/* 特定の文字用のフォールバック */
-.catchphrase h2 span[data-char="縁"],
-.catchphrase h2 span[data-char="一"] {
-    font-family: 'TamanegiKaisho', 'Yuji Boku', 'Hiragino Mincho ProN', serif !important;
+    font-family: 'TamanegiKaisho', 'Yuji Boku', serif; /* ★同じく */
 }
 
 /* レスポンシブ対応 */
@@ -188,16 +193,21 @@ a {
     .catchphrase h2 {
         font-size: 40px;
         letter-spacing: 6px;
+        font-weight: 900; /* ★追加 */
         font-family: 'TamanegiKaisho', 'Yuji Boku', 'Kaisei Decol', 'Hiragino Mincho ProN', 'Yu Mincho', serif; /* ★修正 */
     }
 }
 
-
 @media (max-width: 480px) {
     .catchphrase h2 {
-        font-size: 28px;
-        letter-spacing: 4px;
-        font-family: 'TamanegiKaisho', 'Yuji Boku', 'Kaisei Decol', 'Hiragino Mincho ProN', 'Yu Mincho', serif; /* ★修正 */
+    font-size: 28px;
+    letter-spacing: 4px;
+    font-weight: 900; /* ★追加 */
+    text-shadow: 
+    1px 1px 0px rgba(0, 0, 0, 0.2),
+    1px 1px 1px rgba(0, 0, 0, 0.1);
+    -webkit-text-stroke: 0.2px rgba(0, 0, 0, 0.3);
+    font-family: 'TamanegiKaisho', 'Yuji Boku', 'Kaisei Decol', 'Hiragino Mincho ProN', 'Yu Mincho', serif; /* ★修正 */
     }
 }
 
@@ -1009,91 +1019,240 @@ a {
     color: var(--color-text);
     font-style: normal;
 }
-
 /* ==========================================
- * SNS Section
+ * SNS Section - 新デザイン（画面全体背景版）
  * ========================================== */
 .sns-section {
-    background-color: var(--color-bg-light);
-}
-
-.sns-container {
     background-color: #ffffff;
-    border-radius: 20px;
-    padding: 60px 30px;
-    border: 3px solid var(--color-main);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    max-width: 900px;
-    margin: 0 auto;
-    position: relative;
+    padding: 80px 0;
+    overflow: hidden;
+    position: relative; /* ★追加 */
 }
 
-.sns-title {
-    background-color: var(--color-main);
-    color: #ffffff;
-    font-size: 28px;
-    padding: 12px 40px;
-    border-radius: 8px;
+/* 背景画像（市松模様） - 画面いっぱい */
+.sns-background {
     position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-weight: bold;
-    white-space: nowrap;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('./sns-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; /* ★追加 */
+    z-index: 1;
 }
 
-.sns-title::after {
-    display: none;
+.sns-wrapper {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 500px;
+    z-index: 2; /* ★追加：背景の上に表示 */
 }
 
-.sns-content-box {
+/* 公式SNSバナー（左） */
+.sns-left-banner {
+    position: absolute;
+    left: -50px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-15deg);
+    width: 180px;
+    height: auto;
+    z-index: 3;
+    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.3));
+}
+
+/* バッジ画像（お得な情報配信中！など） */
+.sns-badge-img {
+    width: auto;
+    height: 40px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+/* アカウント名画像 */
+.sns-account-img {
+    width: auto;
+    height: 24px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+/* メインコンテンツボックス（角丸の四角形） */
+.sns-main-box {
+    position: relative;
+    background: #ffffff;
+    border: 4px solid #000000;
+    border-radius: 30px;
+    padding: 50px 40px;
+    margin: 0 auto;
+    max-width: 800px;
     display: flex;
-    justify-content: center;
-    gap: 50px;
-    margin-top: 20px;
-    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    gap: 40px;
+    z-index: 2;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.sns-item {
+/* SNSアイテム */
+.sns-item-new {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 20px;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    min-width: 200px;
+    flex: 1;
 }
 
-.sns-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 15px;
-    margin-bottom: 15px;
-    background-size: cover;
-    background-position: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.insta-icon {
-    background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
-}
-
-.tiktok-icon {
-    background: linear-gradient(135deg, #000000 0%, #69C9D0 100%);
-}
-
-.sns-catch {
-    font-weight: bold;
-    color: var(--color-accent);
-    margin-bottom: 8px;
-    font-size: 16px;
-}
-
-.sns-account {
+/* バッジ（お得な情報配信中！など） */
+.sns-badge {
+    background-color: var(--color-main);
+    color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 20px;
     font-size: 14px;
-    color: var(--color-text);
+    font-weight: bold;
+    margin-bottom: 20px;
+    white-space: nowrap;
+}
+
+/* SNSアイコン */
+.sns-icon-new {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.sns-item-new:hover .sns-icon-new {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* アカウント名 */
+.sns-account-new {
+    font-size: 16px;
+    color: var(--color-main);
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* フォローボタン */
+.btn-sns {
+    display: inline-block;
+    background-color: var(--color-accent);
+    color: #ffffff;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(195, 26, 33, 0.3);
+}
+
+.btn-sns:hover {
+    background-color: #d82e35;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(195, 26, 33, 0.4);
+}
+
+.btn-sns-disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* キャラクターイラスト（右） */
+.sns-character {
+    position: absolute;
+    right: -120px; /* ★変更：-80px → -120px */
+    bottom: -20px;
+    width: 250px;
+    height: auto;
+    z-index: 3;
+    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.2));
+}
+
+/* ==========================================
+ * レスポンシブ対応 - SNS
+ * ========================================== */
+@media (max-width: 1024px) {
+    .sns-left-banner {
+        width: 140px;
+        left: -30px;
+    }
+    
+    .sns-character {
+        width: 200px;
+        right: -70px;
+    }
+    
+    .sns-main-box {
+        padding: 40px 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sns-main-box {
+        flex-direction: column;
+        gap: 30px;
+        padding: 40px 20px;
+    }
+    
+    .sns-left-banner {
+        width: 100px;
+        left: -20px;
+        top: 20px;
+        transform: rotate(-15deg);
+    }
+    
+    .sns-character {
+        width: 150px;
+        right: -40px;
+        bottom: -10px;
+    }
+    
+    .sns-icon-new {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .sns-badge {
+        font-size: 12px;
+        padding: 6px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sns-wrapper {
+        min-height: 400px;
+    }
+    
+    .sns-main-box {
+        padding: 30px 15px;
+        border-radius: 20px;
+    }
+    
+    .sns-left-banner {
+        width: 80px;
+        left: -15px;
+    }
+    
+    .sns-character {
+        width: 120px;
+        right: -25px;
+    }
+    
+    .sns-icon-new {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .btn-sns {
+        padding: 10px 25px;
+        font-size: 13px;
+    }
 }
 
 /* ==========================================
