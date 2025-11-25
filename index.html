@@ -9,9 +9,9 @@
     <!-- Google Fonts - 筆字フォント -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Yuji+Boku&family=Kaisei+Decol:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Yuji+Boku&family=Kaisei+Decol:wght@700&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
 </head>
 <body>
 
@@ -42,8 +42,8 @@
 <header class="header">
     <div class="header-left">
         <a href="#concept">3つの魅力</a>
-        <a href="#menu">メニューの紹介</a>
-        <a href="#stats">数字で見る坊っちゃん</a>
+        <a href="#menu">メニューのご紹介</a>
+        
     </div>
     
     <div class="header-logo">
@@ -51,21 +51,42 @@
     </div>
     
     <div class="header-right">
+        <a href="#stats">数字で見る坊っちゃん</a>
         <a href="#value">坊っちゃんが選ばれる理由</a>
         <a href="#review">お客様の声</a>
-        <a href="#sns">SNS関連</a>
+        <a href="#sns">SNS</a>
     </div>
 </header>
 
-    <!-- Main Visual -->
-    <section class="main-visual parallax-section">
-        <div class="parallax-bg"></div>
-        <div class="main-visual-content">
-            <h2 class="main-visual-title">TOP</h2>
-            <p class="main-visual-subtitle">写真or動画</p>
+<!-- メインスライドショー（横スクロール版） -->
+<section class="main-slider-section">
+    <div class="horizontal-slider-container">
+        <div class="horizontal-slider-wrapper">
+
+            <!-- スライド1: メニュー -->
+            <div class="horizontal-slide">
+                <a href="menu.pdf" target="_blank">
+                    <img src="bocchan_hp.jpg" alt="メニュー詳細">
+                </a>
+            </div>
+            
+            <!-- スライド2: 求人 -->
+            <div class="horizontal-slide">
+                <a href="https://example.com/recruit" target="_blank">
+                    <img src="bocchan_bhp-08.jpg" alt="坊ちゃんで一緒に働こう">
+                </a>
+            </div>
+            
+            <!-- スライド3: SNS -->
+            <div class="horizontal-slide">
+                <a href="https://www.instagram.com/bocchan.official0/" target="_blank">
+                    <img src="bocchan_bhp-09.jpg" alt="公式SNS">
+                </a>
+            </div>
         </div>
-        <div class="wave-divider"></div>
-    </section>
+        
+</section>
+
 
     <!-- Concept Section -->
     <section id="concept" class="section concept fade-in gradient-bg-1">
@@ -224,7 +245,7 @@
         <div class="wave-divider wave-flip"></div>
     </section>
 
-    <!-- Stats Counter Section (数字で見る坊っちゃん) -->
+<!-- Stats Counter Section (数字で見る坊っちゃん) -->
     <section id="stats" class="section stats-section fade-in gradient-bg-2">
         <div class="container">
             <h2 class="section-title lantern-title">
@@ -234,29 +255,58 @@
             </h2>
             <div class="stats-grid">
                 <div class="stat-item card-3d">
-                    <div class="stat-icon">👥</div>
-                    <div class="stat-number" data-target="100000">0</div>
-                    <p class="stat-label">来店者数突破！</p>
+                    <div class="stat-icon">👨‍👩‍👧‍👦</div>
+                    <div class="stat-number" data-target="450">0</div>
+                    <p class="stat-label">1日平均来客数</p>
+                    <p class="stat-description">全店舗合計（人/日）</p>
                 </div>
                 <div class="stat-item card-3d">
                     <div class="stat-icon">🍢</div>
-                    <div class="stat-number" data-target="150">0</div>
-                    <p class="stat-label">メニュー数</p>
+                    <div class="stat-number" data-target="180">0</div>
+                    <p class="stat-label">メニュー総数</p>
+                    <p class="stat-description">焼き鳥・おでん・一品料理</p>
                 </div>
                 <div class="stat-item card-3d">
                     <div class="stat-icon">😊</div>
                     <div class="stat-number" data-target="98">0</div>
                     <p class="stat-label">お客様満足度 %</p>
+                    <p class="stat-description">アンケート調査結果より</p>
                 </div>
                 <div class="stat-item card-3d">
                     <div class="stat-icon">🔄</div>
-                    <div class="stat-number" data-target="85">0</div>
+                    <div class="stat-number" data-target="92">0</div>
                     <p class="stat-label">リピート率 %</p>
+                    <p class="stat-description">月1回以上ご来店のお客様</p>
+                </div>
+                <div class="stat-item card-3d">
+                    <div class="stat-icon">🪑</div>
+                    <div class="stat-number" data-target="180">0</div>
+                    <p class="stat-label">総座席数</p>
+                    <p class="stat-description">全店舗合計の座席数</p>
+                </div>
+                <div class="stat-item card-3d">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-number" data-target="3000">0</div>
+                    <p class="stat-label">平均客単価（円）</p>
+                    <p class="stat-description">お一人様あたりの平均</p>
+                </div>
+                <div class="stat-item card-3d">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-number" data-target="4.5">0</div>
+                    <p class="stat-label">Google評価</p>
+                    <p class="stat-description">5段階評価の平均値</p>
+                </div>
+                <div class="stat-item card-3d">
+                    <div class="stat-icon">📱</div>
+                    <div class="stat-number" data-target="8500">0</div>
+                    <p class="stat-label">SNSフォロワー数</p>
+                    <p class="stat-description">Instagram公式アカウント</p>
                 </div>
             </div>
         </div>
         <div class="wave-divider"></div>
     </section>
+
 
     <!-- Value Proposition Section -->
     <section id="value" class="section value-prop fade-in gradient-bg-2">
@@ -445,15 +495,24 @@
                     <a href="https://bocchantyayamachi.owst.jp" target="_blank" rel="noopener noreferrer" class="btn-store-reserve">ご予約はこちらから</a>
                 </div>
             </div>
-            <div style="text-align: center;">
-                <a href="#stores" class="btn-reserve-large">お近くの「坊っちゃん」をいますぐ予約！</a>
+
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+<!-- Footer -->
     <footer class="footer">
         <div class="container">
+            <!-- フッターナビゲーション -->
+            <nav class="footer-nav">
+                <a href="#concept">3つの魅力</a>
+                <a href="#menu">メニューの紹介</a>
+                <a href="#stats">数字で見る坊っちゃん</a>
+                <a href="#review">お客様の声</a>
+                <a href="#sns">SNS関連</a>
+                <a href="#stores">店舗情報</a>
+            </nav>
+            
             <p class="copyright-info">&copy; yakitori oden bocchan All Rights Reserved.</p>
             <div class="footer-links">
                 <a href="https://double0703.com/" target="_blank" rel="noopener noreferrer">運営会社：株式会社double</a>

@@ -159,7 +159,6 @@ setTimeout(function() {
             console.log('Logo shown');
         }
     }, 7200);
-    
     // 8.5秒：ローディング画面全体をフェードアウト
     setTimeout(function() {
         if (loadingScreen) {
@@ -170,6 +169,9 @@ setTimeout(function() {
             setTimeout(function() {
                 loadingScreen.style.display = 'none';
                 console.log('Loading screen removed from view');
+
+                // ★修正：横スクロールスライダーを初期化
+                initHorizontalSlider();
             }, 1000);
         }
         
@@ -630,4 +632,53 @@ function isInViewport(element) {
         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
         rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
+}
+
+// ==========================================
+// 横スクロールスライダー（ドラッグ対応）
+// ==========================================
+
+// ローディング終了後に初期化
+function initHorizontalSlider() {
+    const slider = document.querySelector('.horizontal-slider-wrapper');
+    
+    if (!slider) {
+        console.log('横スクロールスライダーが見つかりません');
+        return;
+    }
+    
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    
+    // マウスダウン
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.style.cursor = 'grabbing';
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+    
+    // マウスリーブ
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.style.cursor = 'grab';
+    });
+    
+    // マウスアップ
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.style.cursor = 'grab';
+    });
+    
+    // マウスムーブ
+    slider.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 2; // スクロール速度
+        slider.scrollLeft = scrollLeft - walk;
+    });
+    
+    console.log('横スクロールスライダー初期化完了');
 }
