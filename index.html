@@ -58,35 +58,40 @@
     </div>
 </header>
 
-<!-- メインスライドショー（横スクロール版） -->
+<!-- メインスライドショー（カルーセル版） -->
 <section class="main-slider-section">
-    <div class="horizontal-slider-container">
-        <div class="horizontal-slider-wrapper">
-
+    <div class="carousel-container-new">
+        <div class="carousel-wrapper-new">
             <!-- スライド1: メニュー -->
-            <div class="horizontal-slide">
+            <div class="carousel-slide-new active" data-index="0">
                 <a href="menu.pdf" target="_blank">
                     <img src="bocchan_hp.jpg" alt="メニュー詳細">
                 </a>
             </div>
             
             <!-- スライド2: 求人 -->
-            <div class="horizontal-slide">
+            <div class="carousel-slide-new" data-index="1">
                 <a href="https://example.com/recruit" target="_blank">
                     <img src="bocchan_bhp-08.jpg" alt="坊ちゃんで一緒に働こう">
                 </a>
             </div>
             
             <!-- スライド3: SNS -->
-            <div class="horizontal-slide">
+            <div class="carousel-slide-new" data-index="2">
                 <a href="https://www.instagram.com/bocchan.official0/" target="_blank">
                     <img src="bocchan_bhp-09.jpg" alt="公式SNS">
                 </a>
             </div>
         </div>
         
+        <!-- ドットナビゲーション -->
+        <div class="carousel-dots-new">
+            <span class="carousel-dot-new active" data-slide="0"></span>
+            <span class="carousel-dot-new" data-slide="1"></span>
+            <span class="carousel-dot-new" data-slide="2"></span>
+        </div>
+    </div>
 </section>
-
 
     <!-- Concept Section -->
     <section id="concept" class="section concept fade-in gradient-bg-1">
@@ -384,40 +389,44 @@
     </section>
 
 <!-- SNS関連 -->
-<section class="section sns-section">
-    <!-- 背景画像（セクション全体） -->
-    <div class="sns-background"></div>
+<section id="sns" class="section sns-section-v2">
+    <!-- 市松模様背景画像（セクション全体の背景） -->
+    <img src="sns-bg.png" alt="" class="sns-bg-full">
     
     <div class="container">
-        <div class="sns-wrapper">
+        <!-- ★この行を削除 -->
+        <!-- <h2 class="section-title">SNS</h2> -->
+        
+        <!-- 白いメインボックス -->
+        <div class="sns-white-box">
             <!-- 公式SNSバナー（左） -->
-            <img src="sns-banner.png" alt="公式SNS" class="sns-left-banner">
+            <div class="sns-banner-left">
+                <img src="sns-banner.png" alt="公式SNS">
+            </div>
             
-            <!-- メインコンテンツボックス -->
-            <div class="sns-main-box">
-
-<!-- Instagram -->
-<div class="sns-item-new">
-    <img src="badge-info.png" alt="お得な情報配信中！" class="sns-badge-img">
-    <img src="instagram-icon.png" alt="Instagram" class="sns-icon-new">
-    <img src="instagram-account.png" alt="@bocchan.official0" class="sns-account-img">
-    <a href="https://www.instagram.com/bocchan.official0/" target="_blank" class="btn-sns">フォローする</a>
-</div>
-
-<!-- TikTok -->
-<div class="sns-item-new">
-    <img src="badge-preparing.png" alt="只今、準備中" class="sns-badge-img">
-    <img src="tiktok-icon.png" alt="TikTok" class="sns-icon-new">
-    <img src="tiktok-account.png" alt="坊ちゃん公式TikTok" class="sns-account-img">
-    <a href="#" class="btn-sns btn-sns-disabled">準備中</a>
-</div>
-
-            <!-- キャラクターイラスト（右） -->
-            <img src="character-broom.png" alt="坊ちゃんキャラクター" class="sns-character">
+            <!-- Instagram -->
+            <div class="sns-col">
+                <img src="badge-info.png" alt="お得な情報配信中！" class="sns-badge">
+                <img src="instagram-icon.png" alt="Instagram" class="sns-icon-img">
+                <img src="instagram-account.png" alt="@bocchan.official0" class="sns-account-img">
+                <a href="https://www.instagram.com/bocchan.official0/" target="_blank" class="sns-btn">フォローする</a>
+            </div>
+            
+            <!-- TikTok -->
+            <div class="sns-col">
+                <img src="badge-preparing.png" alt="只今、準備中" class="sns-badge">
+                <img src="tiktok-icon.png" alt="TikTok" class="sns-icon-img">
+                <img src="tiktok-account.png" alt="坊ちゃん公式TikTok" class="sns-account-img">
+                <a href="#" class="sns-btn sns-btn-disabled">準備中</a>
+            </div>
+            
+            <!-- 坊ちゃんキャラクター（右） -->
+            <div class="sns-character-right">
+                <img src="character-broom.png" alt="坊ちゃんキャラクター">
+            </div>
         </div>
     </div>
 </section>
-
 
     <!-- Stores Section -->
     <section id="stores" class="section affiliated-stores-section fade-in gradient-bg-1">

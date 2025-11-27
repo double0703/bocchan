@@ -632,53 +632,77 @@ function isInViewport(element) {
         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
         rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
+}// ==========================================
+// カルーセルスライダー（杉玉スタイル）完全版
+// ==========================================
+let currentCarouselIndex = 0;
+const totalSlides = 3;
+
+function updateCarouselDisplay() {
+    const slides = document.querySelectorAll('.carousel-slide-new');
+    const dots = document.querySelectorAll('.carousel-dot-new');
+    
+    if (!slides.length || !dots.length) return;
+    
+    slides.forEach((slide, index) => {
+        // すべてのクラスを削除
+        slide.classList.remove('active', 'prev', 'next', 'hidden');
+        
+        if (index === currentCarouselIndex) {
+            // 中央のスライド
+            slide.classList.add('active');
+        } else if (index === (currentCarouselIndex - 1 + totalSlides) % totalSlides) {
+            // 左のスライド
+            slide.classList.add('prev');
+        } else if (index === (currentCarouselIndex + 1) % totalSlides) {
+            // 右のスライド
+            slide.classList.add('next');
+        } else {
+            // その他は非表示
+            slide.classList.add('hidden');
+        }
+    });
+    
+    // ドットの更新
+    dots.forEach((dot, index) => {
+        if (index === currentCarouselIndex) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
 }
 
-// ==========================================
-// 横スクロールスライダー（ドラッグ対応）
-// ==========================================
-
-// ローディング終了後に初期化
-function initHorizontalSlider() {
-    const slider = document.querySelector('.horizontal-slider-wrapper');
-    
-    if (!slider) {
-        console.log('横スクロールスライダーが見つかりません');
-        return;
-    }
-    
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-    
-    // マウスダウン
-    slider.addEventListener('mousedown', (e) => {
-        isDown = true;
-        slider.style.cursor = 'grabbing';
-        startX = e.pageX - slider.offsetLeft;
-        scrollLeft = slider.scrollLeft;
-    });
-    
-    // マウスリーブ
-    slider.addEventListener('mouseleave', () => {
-        isDown = false;
-        slider.style.cursor = 'grab';
-    });
-    
-    // マウスアップ
-    slider.addEventListener('mouseup', () => {
-        isDown = false;
-        slider.style.cursor = 'grab';
-    });
-    
-    // マウスムーブ
-    slider.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - slider.offsetLeft;
-        const walk = (x - startX) * 2; // スクロール速度
-        slider.scrollLeft = scrollLeft - walk;
-    });
-    
-    console.log('横スクロールスライダー初期化完了');
+function goToSlide(index) {
+    currentCarouselIndex = index;
+    updateCarouselDisplay();
 }
+
+// 初期化
+document.addEventListener('DOMContentLoaded', function() {
+    // カルーセル初期化
+    updateCarouselDisplay();
+    
+    // ドットクリックイベント
+    const dots = document.querySelectorAll('.carousel-dot-new');
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            goToSlide(index);
+        });
+    });
+    
+    // スライドクリックイベント（左右の見切れた画像をクリックで移動）
+    const slides = document.querySelectorAll('.carousel-slide-new');
+    slides.forEach((slide, index) => {
+        slide.addEventListener('click', (e) => {
+            // アクティブなスライドのリンクは通常通り動作
+            if (slide.classList.contains('active')) {
+                return;
+            }
+            
+            // 左右のスライドをクリックした場合は移動
+            e.preventDefault();
+            goToSlide(index);
+        });
+    });
+});
