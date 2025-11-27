@@ -181,7 +181,6 @@ a {
     /* ★コントラストを強化 */
     filter: contrast(1.15) brightness(0.95);
 }
-}
 
 .catchphrase h2 span {
     display: inline-block;
@@ -268,7 +267,7 @@ a {
         height: 150px;
     }
 }
-    
+
 @media (max-width: 480px) {
     .catchphrase h2 {
         font-size: 24px;
@@ -1034,238 +1033,271 @@ a {
     font-style: normal;
 }
 /* ==========================================
- * SNS Section - 新デザイン（画面全体背景版）
+ * SNSセクション（添付画像版）
  * ========================================== */
-.sns-section {
-    background-color: #ffffff;
+.sns-section-v2 {
     padding: 80px 0;
+    position: relative;
     overflow: hidden;
-    position: relative; /* ★追加 */
+    background-color: #ffffff;
 }
 
-/* 背景画像（市松模様） - 画面いっぱい */
-.sns-background {
+/* 市松模様背景（セクション全体） */
+.sns-bg-full {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('./sns-bg.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat; /* ★追加 */
-    z-index: 1;
-}
-
-.sns-wrapper {
-    position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
-    min-height: 500px;
-    z-index: 2; /* ★追加：背景の上に表示 */
-}
-
-/* 公式SNSバナー（左） */
-.sns-left-banner {
-    position: absolute;
-    left: 50px; /* ★変更：-50px → -20px（右に移動） */
-    top: 50%;
-    transform: translateY(-50%) rotate(-2deg); /* ★変更：-15deg → -10deg */
-    width: 180px;
-    height: auto;
-    z-index: 3;
-    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.3));
-}
-
-/* バッジ画像（お得な情報配信中！など） */
-.sns-badge-img {
-    width: auto;
-    height: 40px;
-    object-fit: contain;
-    margin-bottom: 20px;
-}
-
-/* アカウント名画像 */
-.sns-account-img {
-    width: auto;
-    height: 24px;
-    object-fit: contain;
-    margin-bottom: 15px;
-}
-
-/* メインコンテンツボックス（角丸の四角形） */
-.sns-main-box {
-    position: relative;
-    background: #ffffff;
-    border: 4px solid #000000;
-    border-radius: 30px;
-    padding: 50px 40px;
-    margin: 0 auto;
-    max-width: 800px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: 40px;
-    z-index: 2;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-/* SNSアイテム */
-.sns-item-new {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    flex: 1;
-}
-
-/* バッジ（お得な情報配信中！など） */
-.sns-badge {
-    background-color: var(--color-main);
-    color: #ffffff;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    white-space: nowrap;
-}
-
-/* SNSアイコン */
-.sns-icon-new {
-    width: 120px;
-    height: 120px;
-    object-fit: contain;
-    margin-bottom: 15px;
-    transition: transform 0.3s ease;
-}
-
-.sns-item-new:hover .sns-icon-new {
-    transform: scale(1.1) rotate(5deg);
-}
-
-/* アカウント名 */
-.sns-account-new {
-    font-size: 16px;
-    color: var(--color-main);
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-/* フォローボタン */
-.btn-sns {
-    display: inline-block;
-    background-color: var(--color-accent);
-    color: #ffffff;
-    padding: 12px 30px;
-    border-radius: 25px;
-    font-weight: bold;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(195, 26, 33, 0.3);
-}
-
-.btn-sns:hover {
-    background-color: #d82e35;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(195, 26, 33, 0.4);
-}
-
-.btn-sns-disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
+    object-fit: cover;
+    z-index: 0;
     pointer-events: none;
 }
 
-/* キャラクターイラスト（右） */
-.sns-character {
+/* 公式SNSバナー（左） */
+.sns-banner-left {
     position: absolute;
-    right: -180px; /* ★変更：-80px → -120px */
-    bottom: -20px;
-    width: 250px;
-    height: auto;
+    left: -110px; /* ★変更：50px → -90px（白いボックスの左端から外側に） */
+    top: 50%;
+    transform: translateY(-50%) rotate(-5deg);
+    width: 200px;
     z-index: 3;
-    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.2));
+}
+
+.sns-banner-left img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(5px 5px 15px rgba(0, 0, 0, 0.4));
+}
+
+/* 坊ちゃんキャラクター（右） */
+.sns-character-right {
+    position: absolute;
+    right: -70px; /* ★変更：50px → -90px（白いボックスの右端から外側に） */
+    bottom: 20px; /* ★変更：80px → 20px（下に配置） */
+    width: 220px;
+    z-index: 3;
+}
+
+.sns-character-right img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(3px 3px 10px rgba(0, 0, 0, 0.3));
+}
+
+/* 白いメインボックス */
+.sns-white-box {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 80px 40px 80px; /* ★変更：50px → 40px（上下の余白を削減） */
+    background-color: #ffffff;
+    border: 3px solid #333333;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 60px;
+}
+
+/* SNSカラム */
+.sns-col {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px; /* ★変更：15px → 12px（要素間の隙間を削減） */
+}
+
+.sns-badge {
+    width: 180px;
+    height: 50px;
+    object-fit: contain;
+    margin-bottom: 5px; /* ★変更：10px → 5px */
+}
+
+.sns-icon-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    margin: 5px 0; /* ★変更：10px → 5px */
+}
+
+.sns-icon-img:hover {
+    transform: scale(1.05);
+}
+
+.sns-account-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+    margin: 5px 0;
+}
+
+.sns-account-img {
+    width: 200px;
+    height: 30px;
+    object-fit: contain;
+    display: block;
+    margin: 3px 0; /* ★変更：5px → 3px */
+}
+
+.sns-btn {
+    display: inline-block;
+    padding: 12px 35px;
+    background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);
+    margin-top: 5px; /* ★変更：10px → 5px */
+}
+
+.sns-btn:hover {
+    background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%);
+    box-shadow: 0 6px 15px rgba(211, 47, 47, 0.5);
+    transform: translateY(-2px);
+}
+
+.sns-btn-disabled {
+    background: linear-gradient(135deg, #cccccc 0%, #999999 100%);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.sns-btn-disabled:hover {
+    transform: none;
+    background: linear-gradient(135deg, #cccccc 0%, #999999 100%);
 }
 
 /* ==========================================
- * レスポンシブ対応 - SNS
+ * レスポンシブ対応
  * ========================================== */
 @media (max-width: 1024px) {
-    .sns-left-banner {
-        width: 140px;
-        left: -30px;
+    .sns-banner-left {
+        width: 170px;
+        left: -80px;
+        transform: translateY(-50%) rotate(-4deg);
     }
     
-    .sns-character {
-        width: 200px;
-        right: -70px;
+    .sns-character-right {
+        width: 190px;
+        right: -80px;
+        bottom: 15px;
     }
     
-    .sns-main-box {
-        padding: 40px 30px;
+    .sns-white-box {
+        max-width: 90%;
+        padding: 35px 60px 35px 60px; /* ★変更：40px → 35px */
+        gap: 40px;
     }
 }
 
 @media (max-width: 768px) {
-    .sns-main-box {
+    .sns-section-v2 {
+        padding: 60px 0;
+    }
+    
+    .sns-banner-left {
+        width: 140px;
+        left: -70px;
+        top: 40%;
+        transform: translateY(-50%) rotate(-3deg);
+    }
+    
+    .sns-character-right {
+        width: 160px;
+        right: -70px;
+        bottom: 15px;
+    }
+    
+    .sns-white-box {
         flex-direction: column;
-        gap: 30px;
-        padding: 40px 20px;
+        padding: 30px 30px 30px 30px; /* ★変更：40px → 30px */
+        gap: 30px; /* ★変更：40px → 30px */
+        max-width: 95%;
+        margin: 0 15px;
+        align-items: center;
     }
     
-    .sns-left-banner {
-        width: 100px;
-        left: -20px;
-        top: 20px;
-        transform: rotate(-15deg);
+    .sns-col {
+        gap: 10px; /* ★追加 */
     }
     
-    .sns-character {
-        width: 150px;
-        right: -40px;
-        bottom: -10px;
-    }
-    
-    .sns-icon-new {
-        width: 100px;
-        height: 100px;
+    .sns-icon-img {
+        width: 90px;
+        height: 90px;
     }
     
     .sns-badge {
-        font-size: 12px;
-        padding: 6px 15px;
+        width: 160px;
+        height: 45px;
+        margin-bottom: 3px; /* ★追加 */
+    }
+    
+    .sns-account-img {
+        width: 180px;
+        height: 28px;
+        margin: 2px 0; /* ★追加 */
     }
 }
 
 @media (max-width: 480px) {
-    .sns-wrapper {
-        min-height: 400px;
-    }
-    
-    .sns-main-box {
-        padding: 30px 15px;
-        border-radius: 20px;
-    }
-    
-    .sns-left-banner {
-        width: 80px;
-        left: -15px;
-    }
-    
-    .sns-character {
+    .sns-banner-left {
         width: 120px;
-        right: -25px;
+        left: -60px;
+        top: 35%;
+        transform: translateY(-50%) rotate(-2deg);
     }
     
-    .sns-icon-new {
+    .sns-character-right {
+        width: 130px;
+        right: -60px;
+        bottom: 10px;
+    }
+    
+    .sns-white-box {
+        padding: 25px 20px 25px 20px; /* ★変更：30px → 25px */
+        border: 2px solid #333333;
+        gap: 25px; /* ★追加 */
+    }
+    
+    .sns-col {
+        gap: 8px; /* ★追加 */
+    }
+    
+    .sns-icon-img {
         width: 80px;
         height: 80px;
+        margin: 3px 0; /* ★追加 */
     }
     
-    .btn-sns {
+    .sns-badge {
+        width: 140px;
+        height: 40px; /* ★追加 */
+        margin-bottom: 2px; /* ★追加 */
+    }
+    
+    .sns-account-img {
+        width: 160px;
+        height: 26px; /* ★追加 */
+        margin: 2px 0; /* ★追加 */
+    }
+    
+    .sns-btn {
         padding: 10px 25px;
-        font-size: 13px;
+        font-size: 14px;
+        margin-top: 3px; /* ★追加 */
     }
 }
 
@@ -1852,161 +1884,239 @@ a {
         page-break-inside: avoid;
     }
 }
-
-/* ==========================================
- * メインスライドショー（横スクロール版）
+    /* ==========================================
+ * メインカルーセルスライダー（杉玉スタイル）完全版
  * ========================================== */
 .main-slider-section {
-    padding: 40px 0;
-    padding-top: 80px;
-    background-color: #f5f5f5;
+    padding: 100px 0 40px 0;
+    background-color: #ffffff;
     overflow: hidden;
+    position: relative;
 }
 
-.horizontal-slider-container {
+.carousel-container-new {
     position: relative;
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
-.horizontal-slider-wrapper {
-    display: flex;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    gap: 30px;
-    padding: 20px 50px;
-    cursor: grab;
-    
-    /* スクロールバーのスタイル */
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-accent) #e0e0e0;
-}
-
-/* Chrome/Safari用スクロールバー */
-.horizontal-slider-wrapper::-webkit-scrollbar {
-    height: 8px;
-}
-
-.horizontal-slider-wrapper::-webkit-scrollbar-track {
-    background: #e0e0e0;
-    border-radius: 10px;
-}
-
-.horizontal-slider-wrapper::-webkit-scrollbar-thumb {
-    background: var(--color-accent);
-    border-radius: 10px;
-}
-
-.horizontal-slider-wrapper::-webkit-scrollbar-thumb:hover {
-    background: #a51d24;
-}
-
-.horizontal-slider-wrapper:active {
-    cursor: grabbing;
-}
-
-.horizontal-slide {
-    flex: 0 0 calc(33.333% - 20px); /* ★変更：3枚表示 */
-    max-width: calc(33.333% - 20px); /* ★変更 */
-    min-width: 250px;
+.carousel-wrapper-new {
     position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    height: 650px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+    overflow: visible;
 }
 
-.horizontal-slide:hover {
-    transform: translateY(-5px);
+.carousel-slide-new {
+    position: absolute;
+    width: 70%;
+    max-width: 900px;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+    transform-origin: center center;
+    left: 50%;
+    top: 50%;
+}
+
+/* 中央のスライド（アクティブ） */
+.carousel-slide-new.active {
     z-index: 10;
+    transform: translate(-50%, -50%) translateX(0) scale(1);
+    opacity: 1;
 }
 
-.horizontal-slide a {
+/* 左のスライド */
+.carousel-slide-new.prev {
+    z-index: 5;
+    transform: translate(-50%, -50%) translateX(-70%) scale(0.85);
+    opacity: 0.5;
+}
+
+/* 右のスライド */
+.carousel-slide-new.next {
+    z-index: 5;
+    transform: translate(-50%, -50%) translateX(70%) scale(0.85);
+    opacity: 0.5;
+}
+
+/* その他のスライド（非表示） */
+.carousel-slide-new.hidden {
+    z-index: 1;
+    transform: translate(-50%, -50%) translateX(0) scale(0.8);
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.carousel-slide-new a {
     display: block;
     width: 100%;
-    border-radius: 15px;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.horizontal-slide a:hover {
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+.carousel-slide-new.active a:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    transform: translateY(-5px);
 }
 
-.horizontal-slide img {
+.carousel-slide-new img {
     width: 100%;
     height: auto;
+    min-height: 500px;
+    max-height: 650px;
+    object-fit: contain;
     display: block;
-    transition: transform 0.3s ease;
+    background-color: #f5f5f5;
 }
 
-.horizontal-slide a:hover img {
-    transform: scale(1.05);
+/* ドットナビゲーション */
+.carousel-dots-new {
+    text-align: center;
+    padding: 20px 0 10px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 0;
 }
 
-.scroll-arrow {
-    font-size: 24px;
-    font-weight: bold;
-    color: var(--color-accent);
-    animation: slideHint 2s ease-in-out infinite;
+.carousel-dot-new {
+    height: 15px;
+    width: 15px;
+    background-color: #cccccc;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.scroll-arrow:first-child {
-    animation-direction: reverse;
+.carousel-dot-new:hover {
+    background-color: #999999;
+    transform: scale(1.2);
 }
 
-@keyframes slideHint {
-    0%, 100% {
-        opacity: 1;
-        transform: translateX(0);
+.carousel-dot-new.active {
+    background-color: #d32f2f;
+    transform: scale(1.3);
+}
+
+/* ==========================================
+ * レスポンシブ対応
+ * ========================================== */
+@media (max-width: 1200px) {
+    .carousel-slide-new {
+        width: 75%;
     }
-    50% {
-        opacity: 0.4;
-        transform: translateX(10px);
+    
+    .carousel-slide-new.prev {
+        transform: translate(-50%, -50%) translateX(-65%) scale(0.82);
+    }
+    
+    .carousel-slide-new.next {
+        transform: translate(-50%, -50%) translateX(65%) scale(0.82);
     }
 }
 
 @media (max-width: 1024px) {
-    .horizontal-slider-wrapper {
-        gap: 20px;
-        padding: 15px 30px;
+    .carousel-wrapper-new {
+        height: 550px;
     }
     
-    .horizontal-slide {
-        flex: 0 0 calc(50% - 10px); /* ★変更：2枚表示 */
-        max-width: calc(50% - 10px); /* ★追加 */
+    .carousel-slide-new {
+        width: 80%;
+        max-width: 750px;
+    }
+    
+    .carousel-slide-new.prev {
+        transform: translate(-50%, -50%) translateX(-60%) scale(0.8);
+    }
+    
+    .carousel-slide-new.next {
+        transform: translate(-50%, -50%) translateX(60%) scale(0.8);
+    }
+    
+    .carousel-slide-new img {
+        min-height: 450px;
+        max-height: 600px;
     }
 }
 
 @media (max-width: 768px) {
     .main-slider-section {
-        padding: 30px 0;
+        padding: 80px 0 20px 0;
     }
     
-    .horizontal-slider-wrapper {
-        gap: 15px;
-        padding: 15px 20px;
+    .carousel-wrapper-new {
+        height: 450px;
     }
     
-    .horizontal-slide {
-        flex: 0 0 calc(100% - 30px); /* ★変更：1枚表示 */
-        max-width: calc(100% - 30px); /* ★追加 */
+    .carousel-slide-new {
+        width: 90%;
+        max-width: 100%;
+    }
+    
+    /* スマホでは左右のスライドを非表示 */
+    .carousel-slide-new.prev,
+    .carousel-slide-new.next {
+        display: none;
+    }
+    
+    .carousel-slide-new.active {
+        transform: translate(-50%, -50%) translateX(0) scale(1);
+    }
+    
+    .carousel-slide-new img {
+        min-height: 400px;
+        max-height: 500px;
+    }
+    
+    .carousel-dots-new {
+        padding: 15px 0 5px 0;
+        gap: 12px;
+        margin-top: 10px;
+    }
+    
+    .carousel-dot-new {
+        height: 12px;
+        width: 12px;
     }
 }
 
 @media (max-width: 480px) {
     .main-slider-section {
-        padding: 20px 0;
+        padding: 60px 0 15px 0;
     }
     
-    .horizontal-slider-wrapper {
+    .carousel-wrapper-new {
+        height: 400px;
+    }
+    
+    .carousel-slide-new {
+        width: 95%;
+    }
+    
+    .carousel-slide-new img {
+        min-height: 350px;
+        max-height: 450px;
+    }
+    
+    .carousel-dots-new {
+        padding: 10px 0 5px 0;
         gap: 10px;
-        padding: 10px 15px;
     }
     
-    .horizontal-slide {
-        flex: 0 0 calc(100% - 20px); /* ★変更：1枚表示 */
-        max-width: calc(100% - 20px); /* ★追加 */
-        min-width: 250px;
+    .carousel-dot-new {
+        height: 10px;
+        width: 10px;
     }
 }
 
