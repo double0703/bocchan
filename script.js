@@ -12,35 +12,35 @@ window.addEventListener('load', function() {
     console.log('Page loaded, starting new loading animation');
     
     // テキストを1文字ずつspanで囲む（フォント明示版）
-function wrapChars(element, text) {
-    const h2 = element.querySelector('h2');
-    h2.innerHTML = '';
-    
-    const chars = Array.from(text);
-    
-    console.log('=== wrapChars デバッグ ===');
-    console.log('テキスト:', text);
-    console.log('文字数:', chars.length);
-    
-    chars.forEach((char, index) => {
-        const span = document.createElement('span');
-        span.textContent = char;
-        span.style.opacity = '0';
-        span.style.display = 'inline-block';
-        span.style.transform = 'translateY(20px)';
+    function wrapChars(element, text) {
+        const h2 = element.querySelector('h2');
+        h2.innerHTML = '';
         
-        // ★フォールバックを優先
-        span.style.fontFamily = "'TamanegiKaisho', 'Yuji Boku', serif";
-        span.style.fontWeight = 'normal';
+        const chars = Array.from(text);
         
-        h2.appendChild(span);
+        console.log('=== wrapChars デバッグ ===');
+        console.log('テキスト:', text);
+        console.log('文字数:', chars.length);
         
-        console.log(`文字 ${index}: "${char}"`);
-    });
-    
-    console.log('生成されたspan数:', chars.length);
-    console.log('========================');
-}
+        chars.forEach((char, index) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.style.opacity = '0';
+            span.style.display = 'inline-block';
+            span.style.transform = 'translateY(20px)';
+            
+            // ★フォールバックを優先
+            span.style.fontFamily = "'TamanegiKaisho', 'Yuji Boku', serif";
+            span.style.fontWeight = 'normal';
+            
+            h2.appendChild(span);
+            
+            console.log(`文字 ${index}: "${char}"`);
+        });
+        
+        console.log('生成されたspan数:', chars.length);
+        console.log('========================');
+    }
 
     // 1文字ずつフェードイン
     function fadeInChars(element, delay = 50, callback) {
@@ -119,28 +119,28 @@ function wrapChars(element, text) {
         }
     }, 3500);
     
-// 4.4秒：「最高の１杯を」準備
-setTimeout(function() {
-    if (catchphrase2) {
-        wrapChars(catchphrase2, '特別で最高な時間を！'); // ★変更
-    }
-}, 4400);
+    // 4.4秒：「特別で最高な時間を！」準備
+    setTimeout(function() {
+        if (catchphrase2) {
+            wrapChars(catchphrase2, '特別で最高な時間を！');
+        }
+    }, 4400);
 
-// 4.5秒：「最高の１杯を」フェードイン開始
-setTimeout(function() {
-    if (catchphrase2) {
-        fadeInChars(catchphrase2, 70);
-        console.log('Catchphrase 2 fading in');
-    }
-}, 4500);
+    // 4.5秒：「特別で最高な時間を！」フェードイン開始
+    setTimeout(function() {
+        if (catchphrase2) {
+            fadeInChars(catchphrase2, 70);
+            console.log('Catchphrase 2 fading in');
+        }
+    }, 4500);
 
-// 6.2秒：「最高の１杯を」フェードアウト
-setTimeout(function() {
-    if (catchphrase2) {
-        fadeOutChars(catchphrase2, 60);
-        console.log('Catchphrase 2 fading out');
-    }
-}, 6200);
+    // 6.2秒：「特別で最高な時間を！」フェードアウト
+    setTimeout(function() {
+        if (catchphrase2) {
+            fadeOutChars(catchphrase2, 60);
+            console.log('Catchphrase 2 fading out');
+        }
+    }, 6200);
     
     // 7秒：キャッチコピーコンテナを完全に非表示
     setTimeout(function() {
@@ -159,6 +159,7 @@ setTimeout(function() {
             console.log('Logo shown');
         }
     }, 7200);
+    
     // 8.5秒：ローディング画面全体をフェードアウト
     setTimeout(function() {
         if (loadingScreen) {
@@ -169,9 +170,6 @@ setTimeout(function() {
             setTimeout(function() {
                 loadingScreen.style.display = 'none';
                 console.log('Loading screen removed from view');
-
-                // ★修正：横スクロールスライダーを初期化
-                initHorizontalSlider();
             }, 1000);
         }
         
@@ -200,6 +198,7 @@ setTimeout(function() {
         console.log(`%cPage Load Time: ${pageLoadTime}ms`, 'color: #4CAF50; font-weight: bold;');
     }
 });
+
 // ==========================================
 // 2. DOM Content Loaded - Main Functionality
 // ==========================================
@@ -269,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
     handleParallax();
 
     // ==========================================
-    // 2-3. カルーセル機能
+    // 2-3. カルーセル機能（横スクロール）
     // ==========================================
     const track = document.querySelector('.carousel-track');
     
@@ -574,14 +573,218 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ==========================================
-// 3. エラーハンドリング
+// 3. カルーセルスライダー（自動切り替え＋スワイプ対応）
+// ==========================================
+let currentCarouselIndex = 0;
+const totalSlides = 3;
+let autoSlideInterval;
+let touchStartX = 0;
+let touchEndX = 0;
+
+function updateCarouselDisplay() {
+    const slides = document.querySelectorAll('.carousel-slide-new');
+    const dots = document.querySelectorAll('.carousel-dot-new');
+    
+    if (!slides.length || !dots.length) return;
+    
+    slides.forEach((slide, index) => {
+        slide.classList.remove('active', 'prev', 'next', 'hidden');
+        
+        if (index === currentCarouselIndex) {
+            slide.classList.add('active');
+        } else if (index === (currentCarouselIndex - 1 + totalSlides) % totalSlides) {
+            slide.classList.add('prev');
+        } else if (index === (currentCarouselIndex + 1) % totalSlides) {
+            slide.classList.add('next');
+        } else {
+            slide.classList.add('hidden');
+        }
+    });
+    
+    dots.forEach((dot, index) => {
+        if (index === currentCarouselIndex) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+function goToSlide(index) {
+    currentCarouselIndex = index;
+    updateCarouselDisplay();
+    resetAutoSlide();
+}
+
+function nextSlide() {
+    currentCarouselIndex = (currentCarouselIndex + 1) % totalSlides;
+    updateCarouselDisplay();
+}
+
+function prevSlide() {
+    currentCarouselIndex = (currentCarouselIndex - 1 + totalSlides) % totalSlides;
+    updateCarouselDisplay();
+}
+
+// 自動スライド
+function startAutoSlide() {
+    autoSlideInterval = setInterval(nextSlide, 5000); // 5秒ごと
+}
+
+function stopAutoSlide() {
+    if (autoSlideInterval) {
+        clearInterval(autoSlideInterval);
+    }
+}
+
+function resetAutoSlide() {
+    stopAutoSlide();
+    startAutoSlide();
+}
+
+// タッチスワイプ対応
+function handleTouchStart(e) {
+    touchStartX = e.changedTouches[0].screenX;
+}
+
+function handleTouchEnd(e) {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+}
+
+function handleSwipe() {
+    const swipeThreshold = 50;
+    const diff = touchStartX - touchEndX;
+    
+    if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+            // 左スワイプ → 次へ
+            nextSlide();
+        } else {
+            // 右スワイプ → 前へ
+            prevSlide();
+        }
+    }
+}
+
+// カルーセル初期化
+document.addEventListener('DOMContentLoaded', function() {
+    updateCarouselDisplay();
+    
+    // ドットクリックイベント
+    const dots = document.querySelectorAll('.carousel-dot-new');
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            goToSlide(index);
+        });
+    });
+    
+    // スライドクリックイベント
+    const slides = document.querySelectorAll('.carousel-slide-new');
+    slides.forEach((slide, index) => {
+        slide.addEventListener('click', (e) => {
+            if (slide.classList.contains('active')) {
+                return;
+            }
+            e.preventDefault();
+            goToSlide(index);
+        });
+    });
+    
+    // タッチイベント
+    const carouselWrapper = document.querySelector('.carousel-wrapper-new');
+    if (carouselWrapper) {
+        carouselWrapper.addEventListener('touchstart', handleTouchStart, { passive: true });
+        carouselWrapper.addEventListener('touchend', handleTouchEnd, { passive: true });
+    }
+    
+    // 自動スライド開始
+    startAutoSlide();
+    
+    // マウスオーバーで自動スライド停止
+    if (carouselWrapper) {
+        carouselWrapper.addEventListener('mouseenter', stopAutoSlide);
+        carouselWrapper.addEventListener('mouseleave', startAutoSlide);
+    }
+});
+
+// ==========================================
+// 4. ハンバーガーメニュー
+// ==========================================
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu');
+    const mobileMenuItems = document.querySelectorAll('.mobile-menu-item');
+    
+    if (hamburgerMenu && mobileMenuOverlay) {
+        // ハンバーガーメニューのトグル
+        hamburgerMenu.addEventListener('click', function() {
+            hamburgerMenu.classList.toggle('active');
+            mobileMenuOverlay.classList.toggle('active');
+            
+            // スクロール制御
+            if (mobileMenuOverlay.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // メニュー項目クリック時にメニューを閉じる
+        mobileMenuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                hamburgerMenu.classList.remove('active');
+                mobileMenuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        
+        // オーバーレイクリックでメニューを閉じる
+        mobileMenuOverlay.addEventListener('click', function(e) {
+            if (e.target === mobileMenuOverlay) {
+                hamburgerMenu.classList.remove('active');
+                mobileMenuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+});
+
+// ==========================================
+// 5. スクロールアニメーション（Intersection Observer）
+// ==========================================
+document.addEventListener('DOMContentLoaded', function() {
+    const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
+    
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+    
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                revealObserver.unobserve(entry.target); // 一度表示したら監視解除
+            }
+        });
+    }, observerOptions);
+    
+    scrollRevealElements.forEach(element => {
+        revealObserver.observe(element);
+    });
+});
+
+// ==========================================
+// 6. エラーハンドリング
 // ==========================================
 window.addEventListener('error', function(e) {
     console.error('An error occurred:', e.error);
 });
 
 // ==========================================
-// 4. ユーティリティ関数
+// 7. ユーティリティ関数
 // ==========================================
 
 /**
@@ -632,77 +835,4 @@ function isInViewport(element) {
         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
         rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
-}// ==========================================
-// カルーセルスライダー（杉玉スタイル）完全版
-// ==========================================
-let currentCarouselIndex = 0;
-const totalSlides = 3;
-
-function updateCarouselDisplay() {
-    const slides = document.querySelectorAll('.carousel-slide-new');
-    const dots = document.querySelectorAll('.carousel-dot-new');
-    
-    if (!slides.length || !dots.length) return;
-    
-    slides.forEach((slide, index) => {
-        // すべてのクラスを削除
-        slide.classList.remove('active', 'prev', 'next', 'hidden');
-        
-        if (index === currentCarouselIndex) {
-            // 中央のスライド
-            slide.classList.add('active');
-        } else if (index === (currentCarouselIndex - 1 + totalSlides) % totalSlides) {
-            // 左のスライド
-            slide.classList.add('prev');
-        } else if (index === (currentCarouselIndex + 1) % totalSlides) {
-            // 右のスライド
-            slide.classList.add('next');
-        } else {
-            // その他は非表示
-            slide.classList.add('hidden');
-        }
-    });
-    
-    // ドットの更新
-    dots.forEach((dot, index) => {
-        if (index === currentCarouselIndex) {
-            dot.classList.add('active');
-        } else {
-            dot.classList.remove('active');
-        }
-    });
 }
-
-function goToSlide(index) {
-    currentCarouselIndex = index;
-    updateCarouselDisplay();
-}
-
-// 初期化
-document.addEventListener('DOMContentLoaded', function() {
-    // カルーセル初期化
-    updateCarouselDisplay();
-    
-    // ドットクリックイベント
-    const dots = document.querySelectorAll('.carousel-dot-new');
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            goToSlide(index);
-        });
-    });
-    
-    // スライドクリックイベント（左右の見切れた画像をクリックで移動）
-    const slides = document.querySelectorAll('.carousel-slide-new');
-    slides.forEach((slide, index) => {
-        slide.addEventListener('click', (e) => {
-            // アクティブなスライドのリンクは通常通り動作
-            if (slide.classList.contains('active')) {
-                return;
-            }
-            
-            // 左右のスライドをクリックした場合は移動
-            e.preventDefault();
-            goToSlide(index);
-        });
-    });
-});
