@@ -23,19 +23,26 @@ window.addEventListener('load', function() {
         console.log('文字数:', chars.length);
         
         chars.forEach((char, index) => {
-            const span = document.createElement('span');
-            span.textContent = char;
-            span.style.opacity = '0';
-            span.style.display = 'inline-block';
-            span.style.transform = 'translateY(20px)';
-            
-            // ★フォールバックを優先
-            span.style.fontFamily = "'TamanegiKaisho', 'Yuji Boku', serif";
-            span.style.fontWeight = 'normal';
-            
-            h2.appendChild(span);
-            
-            console.log(`文字 ${index}: "${char}"`);
+            // 改行文字の場合は<br>を挿入
+            if (char === '\n') {
+                const br = document.createElement('br');
+                h2.appendChild(br);
+                console.log(`文字 ${index}: "改行"`);
+            } else {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.style.opacity = '0';
+                span.style.display = 'inline-block';
+                span.style.transform = 'translateY(20px)';
+                
+                // ★フォールバックを優先
+                span.style.fontFamily = "'TamanegiKaisho', 'Yuji Boku', serif";
+                span.style.fontWeight = 'normal';
+                
+                h2.appendChild(span);
+                
+                console.log(`文字 ${index}: "${char}"`);
+            }
         });
         
         console.log('生成されたspan数:', chars.length);
@@ -99,11 +106,11 @@ window.addEventListener('load', function() {
     // 1.4秒：「今日も安心して美味い」準備
     setTimeout(function() {
         if (catchphrase1) {
-            wrapChars(catchphrase1, '今日も安心して美味い');
+            wrapChars(catchphrase1, '焼き鳥99円！\nおでん199円！');
         }
     }, 1400);
     
-    // 1.5秒：「今日も安心して美味い」フェードイン開始
+    // 1.5秒：「焼き鳥99円！おでん199円！」フェードイン開始
     setTimeout(function() {
         if (catchphrase1) {
             fadeInChars(catchphrase1, 60);
@@ -111,7 +118,7 @@ window.addEventListener('load', function() {
         }
     }, 1500);
     
-    // 3.5秒：「今日も安心して美味い」フェードアウト
+    // 3.5秒：「焼き鳥99円！おでん199円！」フェードアウト
     setTimeout(function() {
         if (catchphrase1) {
             fadeOutChars(catchphrase1, 50);
@@ -119,14 +126,14 @@ window.addEventListener('load', function() {
         }
     }, 3500);
     
-    // 4.4秒：「特別で最高な時間を！」準備
+    // 4.4秒：「枝豆食べ放題！安心の均一価格！」準備
     setTimeout(function() {
         if (catchphrase2) {
-            wrapChars(catchphrase2, '特別で最高な時間を！');
+            wrapChars(catchphrase2, '枝豆食べ放題！\n安心の均一価格！');
         }
     }, 4400);
 
-    // 4.5秒：「特別で最高な時間を！」フェードイン開始
+    // 4.5秒：「枝豆食べ放題！安心の均一価格！」フェードイン開始
     setTimeout(function() {
         if (catchphrase2) {
             fadeInChars(catchphrase2, 70);
@@ -420,39 +427,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ==========================================
-    // 2-7. 3Dカードエフェクトの強化
+    // 2-7. シンプルなカードホバーエフェクト
     // ==========================================
-    const card3DElements = document.querySelectorAll('.card-3d');
-    
-    card3DElements.forEach(card => {
-        card.addEventListener('mouseenter', function(e) {
-            this.style.transition = 'transform 0.1s ease';
-        });
-
-        card.addEventListener('mousemove', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = (y - centerY) / 10;
-            const rotateY = (centerX - x) / 10;
-            
-            this.style.transform = `
-                translateY(-10px) 
-                rotateX(${rotateX}deg) 
-                rotateY(${rotateY}deg) 
-                scale(1.02)
-            `;
-        });
-
-        card.addEventListener('mouseleave', function() {
-            this.style.transition = 'transform 0.4s ease';
-            this.style.transform = 'translateY(0) rotateX(0) rotateY(0) scale(1)';
-        });
-    });
+    // CSSのみでホバー効果を実装（グワングワンしない）
 
     // ==========================================
     // 2-8. パフォーマンス最適化

@@ -600,12 +600,12 @@ a {
 
 .section {
     position: relative;
-    padding: 80px 0;
+    padding: 60px 0;
 }
 
 /* 3つの魅力セクション：上の余白を削減 */
 #concept {
-    padding-top: 40px;
+    padding-top: 30px;
 }
 
 /* ==========================================
@@ -624,7 +624,7 @@ a {
  * ========================================== */
 .section-title {
     font-size: 36px;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     color: var(--color-main);
     text-align: center;
     position: relative;
@@ -651,66 +651,6 @@ a {
     border-radius: 2px;
 }
 
-.lantern-title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-}
-
-.lantern {
-    width: 40px;
-    height: 60px;
-    background: linear-gradient(180deg, var(--color-accent) 0%, #d82e35 100%);
-    border-radius: 20px;
-    position: relative;
-    box-shadow: 0 4px 10px rgba(195, 26, 33, 0.4);
-    animation: lantern-swing 3s ease-in-out infinite;
-}
-
-.lantern::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 10px;
-    background-color: var(--color-main);
-}
-
-.lantern::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 20px;
-    height: 8px;
-    background-color: #ffeb3b;
-    border-radius: 50%;
-}
-
-.lantern-left {
-    animation-delay: 0s;
-}
-
-.lantern-right {
-    animation-delay: 0.5s;
-}
-
-@keyframes lantern-swing {
-    0%, 100% {
-        transform: rotate(0deg);
-    }
-    25% {
-        transform: rotate(5deg);
-    }
-    75% {
-        transform: rotate(-5deg);
-    }
-}
-
 .bg-light {
     background-color: var(--color-bg-light);
 }
@@ -733,12 +673,11 @@ a {
  * 3D Card Effect
  * ========================================== */
 .card-3d {
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    transform-style: preserve-3d;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card-3d:hover {
-    transform: translateY(-10px) rotateX(5deg) rotateY(5deg) scale(1.02);
+    transform: translateY(-5px) scale(1.03);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
@@ -765,7 +704,7 @@ a {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 .feature-item {
@@ -785,24 +724,23 @@ a {
 
 .feature-image-placeholder {
     width: 100%;
-    height: 200px;
-    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+    height: auto;
+    background: transparent;
     border-radius: 8px;
     margin-bottom: 20px;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #999;
-    font-size: 14px;
     position: relative;
 }
 
 .feature-image-placeholder img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
     transition: transform 0.4s ease;
+    display: block;
 }
 
 .feature-item:hover .feature-image-placeholder img {
@@ -822,12 +760,13 @@ a {
 .menu-items {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
-    margin-top: 40px;
+    gap: 30px;
+    margin-top: 30px;
 }
 
 .menu-item {
     text-align: center;
+    padding: 20px;
 }
 
 .menu-item h3 {
@@ -837,10 +776,31 @@ a {
     font-weight: bold;
 }
 
+.menu-item p {
+    margin: 15px 0;
+    line-height: 1.8;
+}
+
+.menu-item p:first-of-type {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--color-accent);
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.menu-item p:last-of-type {
+    font-size: 16px;
+    line-height: 1.9;
+    color: #333;
+    margin-top: 15px;
+    padding: 0 10px;
+}
+
 .menu-image-placeholder {
     width: 100%;
-    height: 250px;
-    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+    height: auto;
+    background: transparent;
     border-radius: 8px;
     margin-bottom: 20px;
     overflow: hidden;
@@ -849,13 +809,14 @@ a {
 
 .menu-image-placeholder img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
     transition: transform 0.4s ease;
+    display: block;
 }
 
 .menu-item:hover .menu-image-placeholder img {
-    transform: scale(1.15) rotate(2deg);
+    transform: scale(1.1);
 }
 
 /* ==========================================
@@ -868,7 +829,7 @@ a {
 .carousel-container {
     position: relative;
     max-width: 1000px;
-    margin: 40px auto 0;
+    margin: 30px auto 0;
 }
 
 .carousel-window {
@@ -912,7 +873,7 @@ a {
 }
 
 .carousel-item:hover .item-img-box img {
-    transform: scale(1.2) rotate(3deg);
+    transform: scale(1.15);
 }
 
 .item-name {
@@ -932,6 +893,14 @@ a {
     font-size: 14px;
     color: var(--color-text);
     font-weight: normal;
+}
+
+.item-description {
+    font-size: 13px;
+    color: #666666;
+    line-height: 1.5;
+    margin-top: 8px;
+    padding: 0 10px;
 }
 
 .carousel-nav {
@@ -979,7 +948,7 @@ a {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 30px;
-    margin-top: 50px;
+    margin-top: 35px;
 }
 
 .stat-item {
@@ -1065,7 +1034,7 @@ a {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 .value-box {
@@ -1089,8 +1058,8 @@ a {
 
 .value-image-placeholder {
     width: 100%;
-    height: 180px;
-    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+    height: auto;
+    background: transparent;
     border-radius: 8px;
     margin-bottom: 20px;
     overflow: hidden;
@@ -1099,13 +1068,14 @@ a {
 
 .value-image-placeholder img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
     transition: transform 0.4s ease;
+    display: block;
 }
 
 .value-box:hover .value-image-placeholder img {
-    transform: scale(1.1) rotate(-2deg);
+    transform: scale(1.08);
 }
 
 .price-big {
@@ -1173,10 +1143,10 @@ a {
  * ========================================== */
 .review-container-new {
     max-width: 900px;
-    margin: 60px auto 0;
+    margin: 40px auto 0;
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 35px;
 }
 
 .review-item-new {
@@ -1326,17 +1296,17 @@ a {
     
     .review-bubble-text {
         width: 82%;
-        padding: 15px 10px;
+        padding: 16px 18px;
     }
     
     .review-bubble-text p {
-        font-size: 11px;
-        line-height: 1.6;
+        font-size: 13px;
+        line-height: 1.65;
     }
     
     .review-user-info {
-        font-size: 10px;
-        margin-top: 8px;
+        font-size: 11px;
+        margin-top: 10px;
     }
     
     /* 2番目のレビューの女性キャラクターを小さく */
@@ -1377,23 +1347,41 @@ a {
     }
     
     .review-bubble-text {
-        width: 85%;
-        padding: 12px 8px;
+        width: 80%;
+        padding: 18px 15px 10px 15px;
     }
     
     .review-bubble-text p {
-        font-size: 10px;
+        font-size: 11.5px;
         line-height: 1.5;
     }
     
     .review-user-info {
-        font-size: 9px;
+        font-size: 10px;
         margin-top: 6px;
     }
     
     /* 2番目のレビューの女性キャラクターを小さく */
     .review-item-new:nth-child(2) .review-character-right {
         width: 55px;
+    }
+}
+
+/* iPhone 12 Pro等の小さめの画面用の追加調整 */
+@media (max-width: 390px) {
+    .review-bubble-text {
+        width: 76%;
+        padding: 15px 10px 10px 10px;
+    }
+    
+    .review-bubble-text p {
+        font-size: 10.5px;
+        line-height: 1.45;
+    }
+    
+    .review-user-info {
+        font-size: 9px;
+        margin-top: 5px;
     }
 }
 
@@ -1569,7 +1557,7 @@ a {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 .store-item-vertical {
@@ -1618,6 +1606,36 @@ a {
 .btn-store-reserve:hover {
     background-color: #d82e35;
     transform: translateY(-2px);
+}
+
+/* 新規OPEN店舗のスタイル */
+.store-item-vertical.new-store {
+    position: relative;
+    border: 3px solid var(--color-accent);
+    background: linear-gradient(135deg, #ffffff 0%, #fff5f5 100%);
+}
+
+.store-badge {
+    position: absolute;
+    top: -15px;
+    right: 20px;
+    background: linear-gradient(135deg, #ff6b6b 0%, var(--color-accent) 100%);
+    color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(195, 26, 33, 0.4);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
 }
 
 /* ==========================================
@@ -1773,7 +1791,6 @@ a {
     }
     
     .float-animation,
-    .lantern,
     .noren-image {
         animation: none !important;
     }
@@ -1784,8 +1801,7 @@ a {
     #confetti-container,
     .fixed-cta-button,
     .carousel-nav,
-    .wave-divider,
-    .lantern {
+    .wave-divider {
         display: none !important;
     }
     
@@ -1824,15 +1840,15 @@ a {
         width: 100%;
         justify-content: center;
         height: auto;
-        padding: 5px 0;
+        padding: 10px 0;
         background-color: var(--color-header);
         margin: 0;
     }
     
     .noren-image {
-        width: 200px;
+        width: 280px;
         position: relative;
-        top: -5px;
+        top: 0;
         left: 0;
         transform: none;
         animation: none;
@@ -1849,15 +1865,6 @@ a {
     .header-right a {
         padding: 6px 12px;
         font-size: 14px;
-    }
-
-    .lantern {
-        width: 30px;
-        height: 50px;
-    }
-
-    .lantern-title {
-        gap: 20px;
     }
 
     .main-visual {
@@ -1944,7 +1951,7 @@ a {
     .header-logo {
         display: flex !important;
         justify-content: center;
-        padding: 10px 0;
+        padding: 15px 0;
         order: -1;
         width: 100%;
         overflow: visible;
@@ -1954,7 +1961,7 @@ a {
     
     .noren-image {
         display: block !important;
-        width: 180px;
+        width: 240px;
         position: relative;
         top: 0;
         left: 0;
@@ -1970,8 +1977,9 @@ a {
     
     .carousel-wrapper-new {
         height: auto;
-        min-height: 400px;
+        min-height: 300px;
         position: relative;
+        overflow: hidden;
     }
     
     .carousel-slide-new {
@@ -2004,7 +2012,7 @@ a {
         width: 100%;
         height: auto;
         min-height: auto;
-        max-height: none;
+        max-height: 600px;
         object-fit: contain;
         background-color: #ffffff;
     }
@@ -2037,16 +2045,17 @@ a {
     }
 
     .section {
-        padding: 60px 0;
+        padding: 50px 0;
     }
     
     /* 3つの魅力セクション：上の余白を削減 */
     #concept {
-        padding-top: 30px;
+        padding-top: 20px;
     }
 
     .section-title {
         font-size: 28px;
+        margin-bottom: 30px;
     }
 
     .features,
@@ -2055,6 +2064,15 @@ a {
     .review-grid,
     .affiliated-stores-vertical {
         grid-template-columns: 1fr;
+    }
+    
+    .menu-item {
+        padding: 25px 15px;
+    }
+    
+    .menu-item p:last-of-type {
+        padding: 0 5px;
+        font-size: 15px;
     }
 
     .carousel-item {
@@ -2078,7 +2096,7 @@ a {
     .main-visual {
         min-height: 400px;
         padding: 60px 20px;
-        padding-top: 0 !important;
+        padding-top: 80px !important;
         margin: 0 !important;
     }
 
@@ -2094,21 +2112,19 @@ a {
                    pulse 2s infinite 1.8s;
     }
 
-    .lantern {
-        width: 25px;
-        height: 40px;
-    }
-
-    .lantern-title {
-        gap: 15px;
-    }
-
     .wave-divider::before {
         height: 40px;
     }
 
     .store-map iframe {
         height: 180px;
+    }
+    
+    .store-badge {
+        top: -12px;
+        right: 15px;
+        padding: 6px 15px;
+        font-size: 12px;
     }
     
     .sns-section-v2 {
@@ -2216,10 +2232,6 @@ a {
                    pulse 2s infinite 1.5s;
     }
 
-    .lantern {
-        display: none;
-    }
-
     .wave-divider::before {
         height: 30px;
     }
@@ -2243,6 +2255,13 @@ a {
 
     .store-map iframe {
         height: 150px;
+    }
+    
+    .store-badge {
+        top: -10px;
+        right: 10px;
+        padding: 5px 12px;
+        font-size: 11px;
     }
     
     .carousel-wrapper-new {
@@ -2325,5 +2344,208 @@ a {
         padding: 10px 25px;
         font-size: 14px;
         margin-top: 3px;
+    }
+}
+
+/* ==========================================
+ * お問い合わせフォーム
+ * ========================================== */
+.contact-section {
+    background-color: #ffffff;
+    position: relative;
+    padding-bottom: 100px;
+}
+
+.contact-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.contact-intro {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contact-intro p {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.8;
+}
+
+.contact-form {
+    background: #f9f9f9;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.required {
+    color: var(--color-accent);
+    font-size: 14px;
+    margin-left: 5px;
+    font-weight: normal;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-main);
+    box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.checkbox-group {
+    margin: 30px 0;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    color: #333;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.checkbox-label a {
+    color: var(--color-main);
+    text-decoration: underline;
+}
+
+.checkbox-label a:hover {
+    color: var(--color-accent);
+}
+
+.form-submit {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, var(--color-main) 0%, #004080 100%);
+    color: white;
+    padding: 16px 60px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 51, 102, 0.3);
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 51, 102, 0.4);
+    background: linear-gradient(135deg, #004080 0%, var(--color-main) 100%);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.form-message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 16px;
+    display: none;
+}
+
+.form-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    display: block;
+}
+
+.form-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    display: block;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .contact-form {
+        padding: 30px 20px;
+    }
+    
+    .form-group label {
+        font-size: 15px;
+    }
+    
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"],
+    .form-group textarea {
+        font-size: 16px;
+    }
+    
+    .submit-btn {
+        padding: 14px 50px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-intro p {
+        font-size: 14px;
+    }
+    
+    .contact-form {
+        padding: 25px 15px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        font-size: 14px;
+    }
+    
+    .submit-btn {
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 16px;
     }
 }
