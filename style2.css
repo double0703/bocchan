@@ -2010,10 +2010,10 @@ a {
     
     .carousel-slide-new img {
         width: 100%;
-        height: auto;
-        min-height: auto;
-        max-height: 600px;
-        object-fit: contain;
+        height: 100vh;
+        min-height: 400px;
+        max-height: 100vh;
+        object-fit: cover;
         background-color: #ffffff;
     }
     
@@ -2205,7 +2205,7 @@ a {
     
     .noren-image {
         display: block !important;
-        width: 150px;
+        width: 220px;
         position: relative;
         top: 0;
         left: 0;
@@ -2279,10 +2279,10 @@ a {
     
     .carousel-slide-new img {
         width: 100%;
-        height: auto;
-        min-height: auto;
-        max-height: none;
-        object-fit: contain;
+        height: 100vh;
+        min-height: 400px;
+        max-height: 100vh;
+        object-fit: cover;
         background-color: #ffffff;
     }
     

@@ -172,23 +172,28 @@ window.addEventListener('load', function() {
         if (loadingScreen) {
             loadingScreen.classList.add('loaded');
             console.log('Loading screen fading out');
-            
+
             // 1秒後に完全に非表示
             setTimeout(function() {
                 loadingScreen.style.display = 'none';
                 console.log('Loading screen removed from view');
             }, 1000);
         }
-        
+
         // スクロール位置を最上部にリセット
         window.scrollTo(0, 0);
-        
+
         // bodyのスクロールを有効化
         body.style.overflowY = 'auto';
         body.style.overflowX = 'hidden';
-        
+
         console.log('Body scroll enabled');
-        
+
+        // カルーセルを1枚目にリセット
+        currentCarouselIndex = 0;
+        updateCarouselDisplay();
+        console.log('Carousel reset to first slide');
+
         // 固定CTAボタンを表示
         setTimeout(function() {
             if (fixedCtaButton) {
