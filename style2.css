@@ -1933,32 +1933,39 @@ a {
     /* ハンバーガーメニュー表示 */
     .hamburger-menu {
         display: flex;
+        top: 12px;
     }
-    
+
     .header-left,
     .header-right {
         display: none;
     }
-    
+
     .header {
         justify-content: center;
         flex-direction: column;
         align-items: center;
         padding: 0;
         overflow: visible;
+        min-height: 50px;
+        height: 50px;
     }
-    
+
     .header-logo {
         display: flex !important;
         justify-content: center;
-        padding: 15px 0;
+        padding: 0;
         order: -1;
         width: 100%;
         overflow: visible;
-        position: relative;
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
         z-index: 910;
+        height: auto;
     }
-    
+
     .noren-image {
         display: block !important;
         width: 240px;
@@ -1972,6 +1979,7 @@ a {
     /* メインスライダー：スマホで余白を最小化 */
     .main-slider-section {
         padding: 0;
+        padding-top: 50px;
         background-color: #ffffff;
     }
     
@@ -2176,6 +2184,10 @@ a {
 }
 
 @media (max-width: 480px) {
+    .hamburger-menu {
+        top: 12px;
+    }
+
     .container {
         padding: 0 15px;
     }
@@ -2183,7 +2195,7 @@ a {
     .main-visual-title {
         font-size: 48px;
     }
-    
+
     .main-visual-subtitle {
         font-size: 20px;
     }
@@ -2191,7 +2203,7 @@ a {
     .section-title {
         font-size: 24px;
     }
-    
+
     /* 3つの魅力セクション：上の余白を削減 */
     #concept {
         padding-top: 20px;
@@ -2203,6 +2215,19 @@ a {
         padding: 5px;
     }
     
+    .header-logo {
+        display: flex !important;
+        justify-content: center;
+        padding: 0;
+        overflow: visible;
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 910;
+        height: auto;
+    }
+
     .noren-image {
         display: block !important;
         width: 220px;
@@ -2211,15 +2236,6 @@ a {
         left: 0;
         transform: none;
         filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-    }
-
-    .header-logo {
-        display: flex !important;
-        justify-content: center;
-        padding: 8px 0;
-        overflow: visible;
-        position: relative;
-        z-index: 910;
     }
 
     .fixed-cta-button {
@@ -2263,7 +2279,13 @@ a {
         padding: 5px 12px;
         font-size: 11px;
     }
-    
+
+    .main-slider-section {
+        padding: 0;
+        padding-top: 50px;
+        background-color: #ffffff;
+    }
+
     .carousel-wrapper-new {
         height: auto;
         min-height: 350px;
